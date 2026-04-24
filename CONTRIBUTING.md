@@ -1,350 +1,95 @@
-# Contributing to WurmModLoader
+# Contributing — Porting Mods
 
-Thank you for your interest in contributing to WurmModLoader! This document provides guidelines and information for contributors.
+This repo is a home for Ago-era Wurm Unlimited mods ported to [Garward's WurmModLoader](https://github.com/Garward/WurmModLoader). If you've got a mod you want to see work on the modern loader, PRs are welcome.
 
-## Table of Contents
+## Before you start
 
-- [Code of Conduct](#code-of-conduct)
-- [How Can I Contribute?](#how-can-i-contribute)
-- [Development Setup](#development-setup)
-- [Coding Standards](#coding-standards)
-- [Commit Guidelines](#commit-guidelines)
-- [Pull Request Process](#pull-request-process)
-- [Testing](#testing)
-- [Documentation](#documentation)
+- Pick a mod that hasn't been ported yet. Check `mods/` and `client-mods/` first, then the "Known gaps" section of the [CHANGELOG](CHANGELOG.md). Ago's upstream corpus lives at [ago1024/WurmServerModLauncher](https://github.com/ago1024/WurmServerModLauncher) and many community mods were hosted on the old Wurm Unlimited forums.
+- Confirm the mod's original license permits redistribution. Preserve author attribution in the source headers.
+- Get the framework building locally first: see [WurmModLoader](https://github.com/Garward/WurmModLoader) for the server side and [WurmModLoader-Client](https://github.com/Garward/WurmModLoader-Client) for client-side mods. You'll need their built JARs in this repo's `libs/` folder (the framework build scripts auto-sync these when a sibling checkout exists).
 
-## Code of Conduct
+## Porting checklist
 
-This project adheres to a code of conduct that all contributors are expected to follow:
-
-- Be respectful and inclusive
-- Welcome newcomers and help them learn
-- Focus on what is best for the community
-- Show empathy towards other community members
-- Constructive criticism is welcome; personal attacks are not
-
-## How Can I Contribute?
-
-### Reporting Bugs
-
-Before creating bug reports, please check existing issues to avoid duplicates.
-
-**Good bug reports include:**
-- A clear, descriptive title
-- Steps to reproduce the behavior
-- Expected vs actual behavior
-- Screenshots or logs if applicable
-- Your environment (OS, Java version, Wurm version)
-
-### Suggesting Features
-
-We love feature suggestions! Please:
-- Check if the feature has already been suggested
-- Provide a clear description of the feature
-- Explain why this feature would be useful
-- Consider backward compatibility implications
-
-### Contributing Code
-
-Areas where we need help:
-- 🧪 Testing legacy mod compatibility
-- 📚 Writing documentation and tutorials
-- 🐛 Fixing bugs
-- ✨ Implementing new features
-- 🔧 Improving build/tooling
-- 📝 Adding code examples
-
-## Development Setup
-
-### Prerequisites
-
-- **Java 17 or later** (GraalVM recommended)
-- **Git**
-- **IDE** (IntelliJ IDEA recommended)
-
-### Setup Steps
-
-1. **Fork and clone the repository**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/WurmModLoader.git
-   cd WurmModLoader
-   ```
-
-2. **Build the project**
-   ```bash
-   ./gradlew build
-   ```
-
-3. **Run tests**
-   ```bash
-   ./gradlew test
-   ```
-
-4. **Import into IDE**
-   - IntelliJ IDEA: Open the root `build.gradle.kts` file
-   - Eclipse: Import as Gradle project
-   - VSCode: Open folder and use Java extension pack
-
-### Project Structure
+### 1. Drop the source in
 
 ```
-wurmmodloader/
-├── wurmmodloader-api/         # Public API (stable)
-├── wurmmodloader-core/        # Core implementation
-├── wurmmodloader-legacy/      # Backward compatibility
-├── wurmmodloader-modsupport/  # Mod utilities
-├── wurmmodloader-patcher/     # Bytecode patcher
-└── wurmmodloader-cli/         # Command-line tools
+mods/<modname>/
+├── build.gradle.kts            # or build.gradle — either works
+├── src/main/java/...           # mod source
+└── src/dist/                   # optional: .properties / .config / .json shipped alongside the jar
 ```
 
-## Coding Standards
+Client mods live in `client-mods/<modname>/` instead. Use an existing port as your starting template — `betterfarm` is a good reference for a modernized server mod, `bagofholding` for something simpler, `action` for client-side.
 
-### Java Style
+### 2. Register it in `settings.gradle.kts`
 
-We follow standard Java conventions with some specifics:
+```kotlin
+include("mods:<modname>")
+project(":mods:<modname>").projectDir = file("mods/<modname>")
+```
 
-- **Indentation**: 4 spaces (no tabs)
-- **Line length**: 120 characters max
-- **Braces**: K&R style (opening brace on same line)
-- **Naming**:
-  - Classes: `PascalCase`
-  - Methods/variables: `camelCase`
-  - Constants: `UPPER_SNAKE_CASE`
-  - Packages: `lowercase`
+### 3. Rewrite Ago listeners as events
 
-### Code Quality
-
-- Write clean, readable code
-- Add JavaDoc for public APIs
-- Include unit tests for new features
-- Avoid unnecessary complexity
-- Use meaningful variable names
-- Keep methods focused and short
-
-### Example
+The single biggest change from Ago's loader is the event system. Old:
 
 ```java
-package com.garward.wurmmodloader.api.event;
-
-/**
- * Represents an event that can be posted to the event bus.
- *
- * <p>Events are used to notify mods about game state changes
- * and allow them to react or modify behavior.
- *
- * @see EventBus
- * @since 1.0.0
- */
-public abstract class Event {
-
-    private final boolean cancellable;
-    private boolean cancelled = false;
-
-    /**
-     * Creates a new event.
-     *
-     * @param cancellable whether this event can be cancelled
-     */
-    protected Event(boolean cancellable) {
-        this.cancellable = cancellable;
-    }
-
-    /**
-     * Checks if this event can be cancelled.
-     *
-     * @return true if cancellable, false otherwise
-     */
-    public boolean isCancellable() {
-        return cancellable;
-    }
-
-    // ... more methods
+public class MyMod implements WurmServerMod, ServerStartedListener {
+    @Override public void onServerStarted() { ... }
 }
 ```
 
-## Commit Guidelines
+New:
 
-### Commit Message Format
-
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
+```java
+public class MyMod implements WurmServerMod {
+    @SubscribeEvent
+    public void onServerStarted(ServerStartedEvent event) { ... }
+}
 ```
 
-### Types
+All the event classes live in `com.garward.wurmmodloader.api.events.*` — browse the framework repo's API jar to see what's available. Subscribe with `@SubscribeEvent` on a public method taking a single event parameter.
 
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Build process, dependencies, etc.
+If the framework doesn't expose the hook you need yet, two options:
+- Open an issue on [WurmModLoader](https://github.com/Garward/WurmModLoader) with the use case — most bytecode-level gaps belong in the framework, not individual mods.
+- Fall back to the legacy bridge (`compileOnly` against `wurmmodloader-legacy` + `ModListener` etc.) as a temporary measure. Several in-tree ports still do this while new events are added.
 
-### Examples
+### 4. Drop redundant boilerplate
 
-```
-feat(event): add ItemUseEvent for item interactions
+- No need to ship javassist — the framework handles all bytecode work.
+- Mods should NOT import `com.wurmonline.*` classes inside bytecode patches or `@PreInit` code. Type-importing them in event handlers is fine.
+- Config files should go in `src/dist/` (picked up automatically by the build template) and land as `mods/<modname>.properties` in the distribution.
 
-Adds a new cancellable event that fires when a player uses an item.
-This allows mods to intercept and modify item usage behavior.
-
-Closes #123
-```
-
-```
-fix(registry): prevent duplicate registration errors
-
-Fixed an issue where registering the same key twice would cause
-a runtime exception instead of a clear error message.
-```
-
-## Pull Request Process
-
-1. **Create a feature branch**
-   ```bash
-   git checkout -b feature/my-awesome-feature
-   ```
-
-2. **Make your changes**
-   - Write code following our standards
-   - Add tests for new functionality
-   - Update documentation as needed
-
-3. **Commit your changes**
-   ```bash
-   git add .
-   git commit -m "feat(scope): descriptive message"
-   ```
-
-4. **Push to your fork**
-   ```bash
-   git push origin feature/my-awesome-feature
-   ```
-
-5. **Create a pull request**
-   - Use a clear, descriptive title
-   - Reference any related issues
-   - Describe what your PR does
-   - Include screenshots/logs if relevant
-
-6. **Wait for review**
-   - Address any feedback promptly
-   - Keep your branch up to date with main
-   - Be patient and respectful
-
-### PR Checklist
-
-Before submitting, ensure:
-- [ ] Code follows style guidelines
-- [ ] All tests pass (`./gradlew test`)
-- [ ] New features have tests
-- [ ] Documentation is updated
-- [ ] Commit messages follow guidelines
-- [ ] No merge conflicts
-- [ ] JavaDoc is complete for public APIs
-
-## Testing
-
-### Running Tests
+### 5. Build and verify
 
 ```bash
-# Run all tests
-./gradlew test
-
-# Run tests for specific module
-./gradlew :wurmmodloader-core:test
-
-# Run with coverage
-./gradlew test jacocoTestReport
+./gradlew :mods:<modname>:build
 ```
 
-### Writing Tests
+A successful build produces a drag-and-drop folder at `mods/<modname>/dist/`:
 
-Use JUnit 5 and AssertJ:
-
-```java
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.*;
-
-class EventBusTest {
-
-    @Test
-    void shouldDispatchEventToSubscribers() {
-        EventBus bus = new EventBus();
-        TestListener listener = new TestListener();
-
-        bus.register(listener);
-        bus.post(new TestEvent());
-
-        assertThat(listener.called).isTrue();
-    }
-}
+```
+dist/mods/<modname>/<modname>.jar
+dist/mods/<modname>.properties
 ```
 
-### Test Coverage
+Copy that `dist/` contents into your server's root (replacing anything that clashes) and smoke-test it in-game. The [PLAYER_GUIDE](mods/PLAYER_GUIDE.md) covers install layout in more detail.
 
-- Aim for 80%+ coverage for new code
-- Focus on testing public APIs
-- Include edge cases and error conditions
-- Use mocks for external dependencies
+### 6. Open the PR
 
-## Documentation
+Include in the description:
+- What the mod does (one or two sentences).
+- Original author and link to the upstream source.
+- What had to change during the port (listener → event rewrites, removed bytecode hacks, etc.).
+- Whether it still uses the legacy bridge, and why.
 
-### JavaDoc
+Small commits are fine. No strict format required on messages — just make them readable. 
 
-All public APIs must have complete JavaDoc:
+## What not to PR here
 
-```java
-/**
- * Brief description of what this does.
- *
- * <p>Longer explanation with more details.
- *
- * <h2>Usage Example:</h2>
- * <pre>{@code
- * Example code here
- * }</pre>
- *
- * @param paramName description of parameter
- * @return description of return value
- * @throws ExceptionType when this exception occurs
- * @see RelatedClass
- * @since 1.0.0
- */
-public ReturnType methodName(ParamType paramName) {
-    // implementation
-}
-```
+- Framework changes (new events, new bytecode patches, core bug fixes) — those go to the [main WurmModLoader repo](https://github.com/Garward/WurmModLoader).
+- Client framework changes — [WurmModLoader-Client](https://github.com/Garward/WurmModLoader-Client).
+- Brand-new original mods that aren't ports — fine to host on your own, but this repo is scoped to Ago-ecosystem ports and community compatibility work.
 
-### Markdown Documentation
+## Questions
 
-- Use clear, concise language
-- Include code examples
-- Add screenshots where helpful
-- Keep documentation up to date with code
-
-### Documentation Locations
-
-- **API docs**: Inline JavaDoc
-- **Guides**: `docs/guides/`
-- **Examples**: `examples/`
-- **README**: High-level overview
-
-## Questions?
-
-- **General questions**: [GitHub Discussions](https://github.com/garward/WurmModLoader/discussions)
-- **Bug reports**: [GitHub Issues](https://github.com/garward/WurmModLoader/issues)
-- **Feature requests**: [GitHub Issues](https://github.com/garward/WurmModLoader/issues)
-
-## Recognition
-
-Contributors will be recognized in:
-- CONTRIBUTORS.md file
-- Release notes
-- Project README
-
-Thank you for contributing to WurmModLoader! 🎉
+Open an issue or ping on the main WurmModLoader repo's discussions. Porting questions, missing-event requests, and "is this mod already being worked on" checks are all welcome.
