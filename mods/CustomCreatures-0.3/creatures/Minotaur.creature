@@ -1,0 +1,49 @@
+
+
+
+name = Minotaur
+
+sizeModifier = 6;6;6
+modelName = model.creature.humanoid.giant.juggernaut
+noCorpse = true
+dimension = 35;100;50
+color = 255; 255; 255
+naturalArmour = 0.30
+baseCombatRating = 23.0
+hasHands = true
+alignment = -80.0
+maxAge = 150
+armourType = 5
+maxGroupAttackSize = 32
+deathSounds = sound.death.magranon.juggernaut ; sound.death.magranon.juggernaut
+hitSounds = sound.combat.hit.magranon.juggernaut ; sound.combat.hit.magranon.juggernaut
+skill1 = 102; 50.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 55.0
+skill8 = 1023; 50.0
+combatDamageType = 0
+handDamage = 8.0
+kickDamage = 14.0
+biteDamage = 0.0
+headButtDamage = 20.0
+breathDamage = 0.0
+handDamString = smash
+kickDamString = stomp
+headbuttDamString = impale
+butcheredItems = 312;312;312;50;50;50;50
+meatMaterial = 81
+types = 29;7;13;6;39;30;16;62;18
+speed = 1.0
+moveRate = 900
+aggressivity = 77
+bodyType = 0
+maxHuntDistance = 16
+vision = 12
+combatMoves = 6
+fireResistance = 1.25
+encounter1 = TILE_STEPPE; 3; 3
+maxPercentOfCreatures = 0.02

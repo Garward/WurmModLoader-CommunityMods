@@ -1,0 +1,51 @@
+
+# Need halloween serverpacks for it to work and mod (can disable gravestone)
+
+name = Marsh Monster
+disabled = true
+
+sizeModifier = 74; 74; 74
+modelName = model.creature.jackospider
+corpseName = troll.butchered
+dimension = 40; 120; 50
+naturalArmour = 0.25
+baseCombatRating = 22.0
+hasHands = false
+alignment = 0.0
+maxAge = 100
+armourType = 2
+maxGroupAttackSize = 6
+deathSounds = sound.death.spider ; sound.death.spider
+hitSounds = sound.combat.hit.spider ; sound.combat.hit.spider
+skill1 = 102; 40.0
+skill2 = 103; 40.0
+skill3 = 104; 50.0
+skill4 = 101; 40.0
+skill5 = 105; 40.0
+skill6 = 106; 40.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+combatDamageType = 10
+handDamage = 8.0
+kickDamage = 12.0
+biteDamage = 14.0
+headButtDamage = 0.0
+breathDamage = 15.0
+handDamString = sting
+kickDamString = sting
+headbuttDamString = smash
+breathDamString = acid breath
+butcheredItems = 140;303;305;308;310
+meatMaterial = 87
+types = 29;16;7;13;6;39;12;62;32
+speed = 1.0f
+moveRate = 1400
+aggressivity = 55
+bodyType = 8
+maxHuntDistance = 16
+vision = 12
+poisonResistance = 0.65f
+acidResistance = 0.65f
+coldVulnerability = 1.35f
+encounter1 = TILE_MARSH; 3; 3
+maxPercentOfCreatures = 0.02f

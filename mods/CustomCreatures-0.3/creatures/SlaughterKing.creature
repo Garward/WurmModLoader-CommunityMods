@@ -1,0 +1,54 @@
+
+# Unique. Harder or as hard as troll king. Very high armor, deals fire dmg,
+# takes less fire dmg but more cold (drop skull, blood (carpentry), star ruby,
+# ruby, bone, chance for valrei item book
+
+name = Scarlet King
+
+sizeModifier = 94; 94; 94
+modelName = model.creature.humanoid.avenger.light
+corpseName = troll.butchered
+dimension = 50; 100; 50
+color = 222; 18; 18
+naturalArmour = 0.04
+baseCombatRating = 110.0
+hasHands = true
+alignment = -80.0
+maxAge = 10000
+armourType = 5
+maxGroupAttackSize = 50
+deathSounds = sound.death.demon ; sound.death.demon
+hitSounds = sound.combat.hit.demon ; sound.combat.hit.demon
+skill1 = 102; 80.0
+skill2 = 103; 80.0
+skill3 = 104; 60.0
+skill4 = 101; 40.0
+skill5 = 105; 70.0
+skill6 = 106; 70.0
+skill7 = 10052; 80.0
+skill8 = 10053; 70.0
+skill9 = 10054; 70.0
+skill10 = 10055; 70.0
+skill11 = 1023; 80.0
+skill12 = 100; 50.0
+combatDamageType = 4
+handDamage = 25.0
+kickDamage = 35.0
+biteDamage = 0.0
+headButtDamage = 0.0
+breathDamage = 60.0
+handDamString = molten strike
+kickDamString = flame sweep
+breathDamString = incinerate
+butcheredItems = 867;868;376;377;377;887;871;666
+meatMaterial = 87
+types = 29;7;13;6;39;30;16;20;30;40;45;55;62
+speed = 1.8
+moveRate = 800
+aggressivity = 99
+bodyType = 0
+maxHuntDistance = 32
+vision = 20
+combatMoves = 1;8;5
+fireResistance = 1.35
+coldVulnerability = 0.70

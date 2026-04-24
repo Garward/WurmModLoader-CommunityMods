@@ -1,0 +1,47 @@
+
+
+
+name = Skeleton Warrior
+
+sizeModifier = 84; 84; 84
+modelName = model.creature.humanoid.human.skeleton
+dimension = 40; 100; 50
+color = 33; 33; 44
+naturalArmour = 0.5
+baseCombatRating = 13.0
+hasHands = true
+alignment = -80.0
+maxAge = 100
+armourType = 4
+maxGroupAttackSize = 6
+deathSounds = sound.combat.death.skeleton ; sound.combat.death.skeleton
+hitSounds = sound.combat.hit.skeleton ; sound.combat.hit.skeleton
+skill1 = 102; 140.0
+skill2 = 103; 15.0
+skill3 = 104; 15.0
+skill4 = 101; 15.0
+skill5 = 105; 15.0
+skill6 = 106; 15.0
+skill7 = 10052; 40.0
+skill8 = 1023; 40.0
+combatDamageType = 2
+handDamage = 1.0
+kickDamage = 2.0
+biteDamage = 0.0
+headButtDamage = 2.0
+breathDamage = 0.0
+handDamString = pierce
+kickDamString = kick
+headbuttDamString = strike
+butcheredItems = 141;141
+meatMaterial = 87
+types = 29;16;7;13;6;39;6
+speed = 1.0
+moveRate = 1200
+aggressivity = 76
+bodyType = 0
+maxHuntDistance = 8
+vision = 8
+#encounter1 = TILE_MYCELIUM; 3; 5
+#maxPercentOfCreatures = 0.02
+crushVulnerability = 1.25

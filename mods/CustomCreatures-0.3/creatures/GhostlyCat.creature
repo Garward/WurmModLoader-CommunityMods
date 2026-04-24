@@ -1,0 +1,50 @@
+
+# mission monsters for pet cementar / all ghost
+# types bit more armor and combat / does internal
+# / resistance phyical/ vulnu fire / drop mostly
+# 50i coins and ash 0.1kg bigger double ash
+
+name = Ghostly Wildcat
+
+sizeModifier = 74;74;74
+modelName = model.creature.quadraped.cat.wild
+dimension = 30; 120; 50
+color = 70; 180; 60
+naturalArmour = 0.75
+baseCombatRating = 4.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 3
+maxGroupAttackSize = 8
+deathSounds = sound.death.cat ; sound.death.cat
+hitSounds = sound.combat.hit.cat ; sound.combat.hit.cat
+skill1 = 102; 25.0
+skill2 = 103; 25.0
+skill3 = 104; 25.0
+skill4 = 101; 30.0
+skill5 = 105; 30.0
+skill6 = 106; 30.0
+skill7 = 10052; 20.0
+skill8 = 1023; 20.0
+combatDamageType = 9
+handDamage = 2.0
+kickDamage = 0.0
+biteDamage = 4.0
+headButtDamage = 0
+breathDamage = 5.0
+handDamString = astral claw
+biteDamString = astral bite
+breathDamString = astral breath
+butcheredItems = 141;55;55;59;59
+meatMaterial = 87
+types = 29;3;18;7;13;6;39;32;12;41;16
+speed = 0.8
+moveRate = 600
+aggressivity = 95
+bodyType = 3
+maxHuntDistance = 8
+vision = 12
+physicalResistance = 0.75
+fireVulnerability = 1.25
+ghost = true

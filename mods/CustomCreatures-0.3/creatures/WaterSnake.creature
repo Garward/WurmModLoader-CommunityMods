@@ -1,0 +1,43 @@
+
+
+
+name = Deepsea Snake
+
+sizeModifier = 84;84;84
+modelName = model.creature.snake.anaconda
+corpseName = troll.butchered
+dimension = 30; 120; 50
+color = 70; 80; 160
+naturalArmour = 0.40
+baseCombatRating = 12.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 2
+maxGroupAttackSize = 8
+deathSounds = sound.death.insect ; sound.death.insect
+hitSounds = sound.combat.hit.insect ; sound.combat.hit.insect
+skill1 = 102; 30.0
+skill2 = 103; 20.0
+skill3 = 104; 20.0
+skill4 = 101; 35.0
+skill5 = 105; 45.0
+skill6 = 106; 45.0
+skill7 = 10052; 40.0
+skill8 = 1023; 40.0
+combatDamageType = 8
+handDamage = 0.0
+kickDamage = 0.0
+biteDamage = 7.0
+headButtDamage = 0.0
+butcheredItems = 310;309;308
+meatMaterial = 85
+types = 29;3;18;7;13;6;39;12;41;16;18
+speed = 0.8
+moveRate = 200
+aggressivity = 95
+bodyType = 9
+maxHuntDistance = 6
+vision = 12
+coldResistance = 0.75
+fireVulnerability = 1.25

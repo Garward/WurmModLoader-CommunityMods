@@ -1,0 +1,49 @@
+
+
+
+name = Deep One
+
+sizeModifier = 194;194;194
+modelName = model.creature.fish.octopus.male
+corpseName = octopus
+dimension = 50; 100; 50
+color = 66; 22; 182
+naturalArmour = 0.1
+baseCombatRating = 18.0
+hasHands = false
+alignment = -30.0
+maxAge = 100
+armourType = 3
+maxGroupAttackSize = 6
+deathSounds = sound.death.snake ; sound.death.snake
+hitSounds = sound.combat.hit.snake ; sound.combat.hit.snake
+skill1 = 102; 50.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 60.0
+skill8 = 1023; 60.0
+combatDamageType = 8
+handDamage = 6.0
+kickDamage = 9.0
+biteDamage = 12.0
+headButtDamage = 10.0
+breathDamage = 18.0
+breathDamString = ABYSSAL GRIP
+handDamString = frostslap
+kickDamString = frostsqueze
+butcheredItems = 92;92;140;140;308;308;752;752;636;1397;1397;1397
+meatMaterial = 85
+types = 7;44;38;6;3;16;29;16;37;62;18
+speed = 1.5
+moveRate = 2100
+aggressivity = 88
+bodyType = 9
+maxHuntDistance = 16
+vision = 16
+offZ = -0.4f
+combatMoves = 1
+coldResistance = 0.75
+fireVulnerability = 1.25

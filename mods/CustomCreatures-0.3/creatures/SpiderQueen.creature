@@ -1,0 +1,50 @@
+
+# mission miniboss but weaker than astral guardian , spawns on moss if enabled else for mission creation/ if
+# you dare you can shear and milk it! but it also drops 3x more gland and some wool, high difficulty butcher
+# since a lot of stuff , does acid damage
+
+name = Spider Queen
+
+sizeModifier = 114; 114; 114
+modelName = model.creature.multiped.spider.fog
+corpseName = fogspider
+dimension = 40; 120; 50
+naturalArmour = 0.10
+baseCombatRating = 18.0
+hasHands = false
+alignment = -30.0
+maxAge = 100
+armourType = 2
+maxGroupAttackSize = 8
+deathSounds = sound.death.spider ; sound.death.spider
+hitSounds = sound.combat.hit.spider ; sound.combat.hit.spider
+skill1 = 102; 60.0
+skill2 = 103; 80.0
+skill3 = 104; 50.0
+skill4 = 101; 40.0
+skill5 = 105; 60.0
+skill6 = 106; 60.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+combatDamageType = 10
+handDamage = 4.0
+kickDamage = 6.0
+biteDamage = 10.0
+headButtDamage = 0.0
+breathDamage = 15.0
+color = 22; 22; 122
+handDamString = sting
+kickDamString = sting
+breathDamString = spit
+butcheredItems = 92;308;308;636;921;921;921;921;921;310;374
+meatMaterial = 82
+types = 29;16;18;7;13;6;39;15;52;62
+speed = 1
+moveRate = 1800
+aggressivity = 88
+bodyType = 8
+maxHuntDistance = 16
+vision = 12
+combatMoves = 9
+sex = 1
+keepSex = true

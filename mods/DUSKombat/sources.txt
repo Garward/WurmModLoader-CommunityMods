@@ -1,0 +1,12 @@
+src/main/java/mod/piddagoras/duskombat/SpecialMoves.java
+src/main/java/mod/piddagoras/duskombat/CombatMessages.java
+src/main/java/mod/piddagoras/duskombat/DamageMethods.java
+src/main/java/mod/piddagoras/duskombat/ItemInfo.java
+src/main/java/mod/piddagoras/duskombat/Style.java
+src/main/java/mod/piddagoras/duskombat/DUSKombat.java
+src/main/java/mod/piddagoras/duskombat/CombatMethods.java
+src/main/java/mod/piddagoras/duskombat/DUSKombatMod.java
+src/main/java/mod/piddagoras/duskombat/Stance.java
+src/main/java/mod/piddagoras/duskombat/util/WoundAssist.java
+src/main/java/mod/piddagoras/duskombat/util/Prop.java
+src/main/java/mod/piddagoras/duskombat/DamageEngine.java

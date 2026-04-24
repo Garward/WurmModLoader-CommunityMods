@@ -1,0 +1,48 @@
+
+
+
+name = Mycotic bear
+
+sizeModifier = 74;74;74
+modelName = model.creature.quadraped.bear.black
+corpseName = troll.butchered
+dimension = 30; 120; 50
+color = 70; 180; 60
+naturalArmour = 0.55
+baseCombatRating = 8.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 3
+maxGroupAttackSize = 12
+deathSounds = sound.death.bear ; sound.death.bear
+hitSounds = sound.combat.hit.bear ; sound.combat.hit.bear
+skill1 = 102; 40.0
+skill2 = 103; 35.0
+skill3 = 104; 35.0
+skill4 = 101; 30.0
+skill5 = 105; 40.0
+skill6 = 106; 40.0
+skill7 = 10052; 40.0
+skill8 = 1023; 30.0
+combatDamageType = 10
+handDamage = 3.0
+kickDamage = 0.0
+biteDamage = 8.0
+headButtDamage = 0
+breathDamage = 6.0
+handDamString = infected claw
+biteDamString = infected bite
+breathDamString = infected breath
+butcheredItems = 140;302;305;303
+meatMaterial = 72
+types = 29;3;18;7;13;6;39;32;12;41;16
+speed = 1.0
+moveRate = 1000
+aggressivity = 95
+bodyType = 2
+maxHuntDistance = 8
+vision = 12
+fireVulnerability = 1.25
+poisonResistance = 0.75
+acidResistance = 0.75

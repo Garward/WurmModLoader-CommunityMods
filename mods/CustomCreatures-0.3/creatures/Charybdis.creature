@@ -1,0 +1,46 @@
+
+# Unique kraken
+
+name = Charybdis
+
+sizeModifier = 250;250;250
+modelName = model.creature.fish.octopus.male
+corpseName = octopus
+dimension = 50; 100; 50
+color = 232; 82; 82;
+naturalArmour = 0.05
+baseCombatRating = 105.0
+hasHands = false
+alignment = -30.0
+maxAge = 100
+armourType = 5
+maxGroupAttackSize = 36
+deathSounds = sound.death.snake ; sound.death.snake
+hitSounds = sound.combat.hit.snake ; sound.combat.hit.snake
+skill1 = 102; 70.0
+skill2 = 103; 90.0
+skill3 = 104; 80.0
+skill4 = 101; 80.0
+skill5 = 105; 90.0
+skill6 = 106; 90.0
+skill7 = 10052; 80.0
+skill8 = 1023; 80.0
+combatDamageType = 0
+handDamage = 18.0
+kickDamage = 25.0
+biteDamage = 45.0
+headButtDamage = 30.0
+handDamString = slap
+kickDamString = brutalize
+biteDamString = devour
+butcheredItems = 867;868;1397;1397;1397;1398;1398;1398
+meatMaterial = 85
+types = 29;7;13;6;39;30;3;20;30;40;55;62;37;38
+speed = 3.0
+moveRate = 1800
+aggressivity = 99
+bodyType = 9
+maxHuntDistance = 32
+vision = 18
+offZ = -0.1
+combatMoves = 6;1

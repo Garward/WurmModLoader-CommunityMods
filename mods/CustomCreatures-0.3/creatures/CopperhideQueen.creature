@@ -1,0 +1,45 @@
+
+
+
+name = Copperhide Queen
+
+sizeModifier = 128; 128; 128
+modelName = model.creature.quadraped.insect.cavebug
+noCorpse = true
+dimension = 30; 120; 50
+color = 199; 123; 90
+naturalArmour = 0.15
+baseCombatRating = 6.0
+hasHands = false
+alignment = -30.0
+maxAge = 60
+armourType = 2
+maxGroupAttackSize = 12
+deathSounds = sound.death.insect;sound.death.insect
+hitSounds = sound.combat.hit.insect;sound.combat.hit.insect
+skill1 = 102; 30.0
+skill2 = 103; 20.0
+skill3 = 104; 20.0
+skill4 = 101; 20.0
+skill5 = 105; 20.0
+skill6 = 106; 20.0
+skill7 = 10052; 25.0
+skill8 = 1023; 10.0
+combatDamageType = 4
+handDamage = 3.0
+kickDamage = 0.0
+biteDamage = 6.0
+headButtDamage = 0.0
+breathDamage = 8.0
+handDamString = claw
+kickDamString = claw
+breathDamString = fire breath
+butcheredItems = 50;50;50;50;50;50;50;50;439;439;439;439
+meatMaterial = 82
+types = 3;7;6;12;13;27;32;62
+speed = 1.2
+moveRate = 1300
+aggressivity = 95
+bodyType = 3
+maxHuntDistance = 8
+vision = 12

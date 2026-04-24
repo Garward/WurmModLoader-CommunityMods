@@ -1,0 +1,45 @@
+
+# An undead humanoid.
+
+name = Walking Corpse
+
+sizeModifier = 84; 84; 84
+modelName = model.creature.humanoid.human.player.zombie.male
+dimension = 40; 100; 50
+color = 200; 22; 22
+naturalArmour = 0.30
+baseCombatRating = 15.0
+hasHands = true
+alignment = -30.0
+maxAge = 100
+armourType = 4
+maxGroupAttackSize = 6
+deathSounds = sound.death.zombie ; sound.death.zombie
+hitSounds = sound.combat.hit.zombie ; sound.combat.hit.zombie
+skill1 = 102; 50.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+combatDamageType = 1
+handDamage = 6.0
+kickDamage = 8.0
+biteDamage = 12.0
+headButtDamage = 8.0
+breathDamage = 0.0
+handDamString = claw
+kickDamString = kick
+butcheredItems = 92;140;308;308;636
+meatMaterial = 87
+types = 29;16;18;7;13;6;39
+speed = 1.0
+moveRate = 1200
+aggressivity = 88
+bodyType = 0
+maxHuntDistance = 12
+vision = 8
+encounter1 = TILE_MYCELIUM; 3; 3
+maxPercentOfCreatures = 0.01

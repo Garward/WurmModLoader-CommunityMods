@@ -1,0 +1,52 @@
+
+# Unique, stronger than goblin leader (+7cr and a bit more armor and 1 extra attack
+# fan of knives (breath dmg)). Butchering gives rare bone + star ruby,emerald,saph,skull
+# (gives blood as well)
+
+name = Bandit Lord
+
+sizeModifier = 144; 144; 144
+modelName = model.creature.humanoid.human.guard.tower.male.molr
+corpseName = troll.butchered
+dimension = 50; 100; 50
+color = 255; 255; 255
+naturalArmour = 0.06
+baseCombatRating = 85.0
+hasHands = true
+alignment = -80.0
+maxAge = 10000
+armourType = 5
+maxGroupAttackSize = 50
+deathSounds = sound.death.male ; sound.death.female
+hitSounds = sound.combat.hit.male ; sound.combat.hit.female
+skill1 = 102; 50.0
+skill2 = 103; 60.0
+skill3 = 104; 50.0
+skill4 = 101; 40.0
+skill5 = 105; 40.0
+skill6 = 106; 50.0
+skill7 = 10052; 80.0
+skill8 = 10053; 50.0
+skill9 = 10054; 50.0
+skill10 = 10055; 50.0
+skill11 = 1023; 80.0
+skill12 = 100; 40.0
+combatDamageType = 2
+handDamage = 15.0
+kickDamage = 25.0
+biteDamage = 0.0
+headButtDamage = 20.0
+breathDamage = 40.0
+handDamString = thrust
+kickDamString = kneeblade
+breathDamString = fan of knive
+butcheredItems = 867;868
+meatMaterial = 81
+types = 29;7;13;6;39;30;16;20;30;40;45;62
+speed = 1.6
+moveRate = 800
+aggressivity = 99
+bodyType = 0
+maxHuntDistance = 32
+vision = 20
+combatMoves = 1;4

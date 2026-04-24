@@ -1,0 +1,50 @@
+
+
+
+name = Marsh Crawler
+
+sizeModifier = 64; 64; 64
+modelName = model.creature.deathcrawler
+corpseName = deathcrawlerminion
+dimension = 40; 120; 50
+naturalArmour = 0.30
+baseCombatRating = 20.0
+hasHands = false
+alignment = 0.0
+maxAge = 100
+armourType = 2
+maxGroupAttackSize = 6
+deathSounds = sound.death.deathcrawler ; sound.death.deathcrawler
+hitSounds = sound.combat.hit.deathcrawler ; sound.combat.hit.deathcrawler
+skill1 = 102; 50.0
+skill2 = 103; 40.0
+skill3 = 104; 50.0
+skill4 = 101; 40.0
+skill5 = 105; 40.0
+skill6 = 106; 40.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+combatDamageType = 10
+handDamage = 9.0
+kickDamage = 0.0
+biteDamage = 16.0
+headButtDamage = 0.0
+breathDamage = 12.0
+handDamString = claw
+kickDamString = claw
+headbuttDamString = smash
+breathDamString = acid breath
+butcheredItems = 140;303;305;308;310
+meatMaterial = 87
+types = 29;3;7;13;6;39;42;32;12
+speed = 1.2
+moveRate = 1400
+aggressivity = 74
+bodyType = 3
+maxHuntDistance = 16
+vision = 12
+poisonResistance = 0.65
+acidResistance = 0.65
+coldVulnerability = 1.35
+encounter1 = TILE_MARSH; 4; 4
+maxPercentOfCreatures = 0.02

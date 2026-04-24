@@ -1,0 +1,46 @@
+
+
+
+name = Butcher
+
+sizeModifier = 28;28;28
+modelName = model.creature.humanoid.kyklops
+noCorpse = true
+dimension = 30; 120; 50
+color = 199; 123; 90
+naturalArmour = 0.10
+baseCombatRating = 18.0
+hasHands = true
+alignment = -30.0
+maxAge = 60
+armourType = 5
+maxGroupAttackSize = 16
+deathSounds = sound.death.giant ; sound.death.giant
+hitSounds = sound.combat.hit.giant ; sound.combat.hit.giant
+skill1 = 102; 50.0
+skill2 = 103; 80.0
+skill3 = 104; 35.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 45.0
+skill8 = 1023; 50.0
+combatDamageType = 9
+handDamage = 6.0
+kickDamage = 8.0
+biteDamage = 10.0
+headButtDamage = 8.0
+breathDamage = 15.0
+handDamString = hook
+kickDamString = spike
+breathDamString = BUTCHER
+butcheredItems = 303;308;310;44;44;58;636;140;140;140
+meatMaterial = 81
+types = 6;7;13;16;29;30;32;34;45;61;62;18
+speed = 1.1
+moveRate = 1600
+aggressivity = 95
+bodyType = 5
+maxHuntDistance = 8
+vision = 12
+combatMoves = 1

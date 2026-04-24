@@ -1,0 +1,99 @@
+
+# This file and ExampleCreature2.creature will help you familiarize yourself
+# with creating new creatures with this mod. You should probably delete these
+# files before launching the mod on your live server, as you probably don't want these
+# creatures in your world.
+
+# You can start creating a new creature by creating a new file in this directory.
+# Let's say you wanted to add in a zombie creature. You should create a file called
+# 'Zombie.creature' or 'SlowDumbHumanoid.creature' or something else descriptive.
+
+# You can define a property like in a .config or .properties file. For example:
+name = Dumb Zombie
+
+# You may define as many properties for a creature as you want. You can see the
+# available properties in Properties.md in the documentation directory.
+
+# IMPORTANT: You must define a 'name' property for each creature, or else the server
+#            will crash on startup. No other property is required like this.
+
+
+# While you can technically redefine properties, you shouldn't, because it will only
+# lead to confusion, the last value will be used:
+name = Cheese boy
+name = Dumb Zombie
+
+
+# String values can be defined as such:
+name = Dumb Zombie
+# In which case the value will be 'Dumb Zombie'
+
+
+# int/short/byte values can be defined by a simple number:
+maxAge = 100
+
+
+# float value can be defined with a dot as such:
+coldVulnerability = 1.4
+coldVulnerability = 1.0
+# or without a dot:
+coldVulnerability = 1
+# or with an 'f':
+coldVulnerability = 1f
+coldVulnerability = 1.5f
+
+
+# List values must be separated by semicolons ';' as such:
+sizeModifier = 84; 84; 84
+
+
+# Spaces and tabs do not matter when defining properties with numerical values.
+# They are also cut off of the ends and beginnings of string values:
+maxAge = 100
+# will be the same as
+maxAge=100
+# or
+maxAge =                       100
+# And same for string values:
+name = Dumb Zombie
+# is the same as
+name=Dumb Zombie
+# And same for list values:
+sizeModifier = 84; 84; 84
+# is the same as
+sizeModifier=84;84;84
+
+
+# You can disable a creature you do not want to be loaded by defining 'disabled':
+#disabled = true
+# But of course by default it is false, equivalent to if you define it as:
+disabled = false
+
+
+
+# You can check out a list of properties and descriptions and examples of each
+# of them in Properties.md in the documentation directory.
+
+sizeModifier=84;84;84
+modelName = model.creature.humanoid.human.player.zombie.male
+dimension = 40; 100; 50
+maxAge = 100
+deathSounds = sound.death.zombie; sound.death.zombie
+hitSounds = sound.combat.hit.zombie; sound.combat.hit.zombie
+skill1 = 102; 50.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+types = 29;16;18;7;13;6;39
+speed = 1
+moveRate = 1200
+aggressivity = 88
+bodyType = 0
+maxHuntDistance = 12
+vision = 8
+encounter1 = TILE_MYCELIUM; 3; 3
+maxPercentOfCreatures = 0.01f

@@ -1,0 +1,49 @@
+
+
+
+name = Whack a Rat
+
+sizeModifier = 151; 151; 151
+modelName = model.creature.quadraped.rat
+corpseName = largerat
+dimension = 30; 120; 50
+color = 154; 205; 50
+naturalArmour = 0.08
+baseCombatRating = 10.0
+hasHands = false
+alignment = -30.0
+maxAge = 500
+armourType = 2
+maxGroupAttackSize = 12
+deathSounds = sound.death.rat ; sound.death.rat
+hitSounds = sound.combat.hit.rat ; sound.combat.hit.rat
+skill1 = 102; 40.0
+skill2 = 103; 30.0
+skill3 = 104; 30.0
+skill4 = 101; 40.0
+skill5 = 105; 40.0
+skill6 = 106; 40.0
+skill7 = 10052; 45.0
+skill8 = 1023; 30.0
+combatDamageType = 9
+handDamage = 1.5
+kickDamage = 0.0
+biteDamage = 1.5
+headButtDamage = 1.5
+breathDamage = 2.5
+handDamString = bite
+kickDamString = kick
+headbuttDamString = smack
+breathDamString = confetti breath
+butcheredItems = 303;308;305
+meatMaterial = 78
+types = 3;7;6;12;13;27;32;62;15
+speed = 0.7
+moveRate = 1300
+aggressivity = 95
+bodyType = 3
+maxHuntDistance = 8
+vision = 12
+fireResistance = 1.40
+acidResistance = 1.40
+biteResistance = 1.40

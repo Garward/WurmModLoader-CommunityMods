@@ -1,0 +1,50 @@
+
+# Unique, Monty Python meme. Its scratches are not that dangerous but beware
+# of the bites, deals internal dmg, drops skull, bone, sleep powder
+
+name = Rabbit of Caerbannog
+
+sizeModifier = 153;153;153
+modelName = model.creature.quadraped.easterbunny
+corpseName = troll.butchered
+dimension = 50; 100; 50
+naturalArmour = 0.06
+baseCombatRating = 105.0
+hasHands = false
+alignment = -80.0
+maxAge = 10000
+armourType = 2
+maxGroupAttackSize = 50
+deathSounds = sound.death.demon ; sound.death.demon
+hitSounds = sound.combat.hit.demon ; sound.combat.hit.demon
+skill1 = 102; 40.0
+skill2 = 103; 90.0
+skill3 = 104; 90.0
+skill4 = 101; 50.0
+skill5 = 105; 80.0
+skill6 = 106; 80.0
+skill7 = 10052; 85.0
+skill8 = 10053; 70.0
+skill9 = 10054; 70.0
+skill10 = 10055; 80.0
+skill11 = 1023; 80.0
+skill12 = 100; 70.0
+combatDamageType = 9
+handDamage = 15.0
+kickDamage = 0.0
+biteDamage = 45.0
+headButtDamage = 35.0
+breathDamage = 45.0
+handDamString = scratch
+biteDamString = disembowel
+breathDamString = dismember
+butcheredItems = 867;868;666;636
+meatMaterial = 78
+types = 29;7;13;6;39;30;3;20;30;40;55;62
+speed = 3.0
+moveRate = 600
+aggressivity = 99
+bodyType = 3
+maxHuntDistance = 16
+vision = 12
+combatMoves = 1;7

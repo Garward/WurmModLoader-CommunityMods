@@ -1,0 +1,45 @@
+
+# Boss, drops ash ,few iron coins, 2x 0.1kg random ql silver lump
+
+name = Bowser the vengeful
+
+sizeModifier = 84;84;84
+modelName = model.creature.quadraped.tortoise
+dimension = 30; 120; 50
+color = 70; 180; 60
+naturalArmour = 0.15
+baseCombatRating = 10.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 4
+maxGroupAttackSize = 8
+deathSounds = sound.death.insect;sound.death.insect
+hitSounds = sound.combat.hit.insect;sound.combat.hit.insect
+skill1 = 102; 30.0
+skill2 = 103; 20.0
+skill3 = 104; 20.0
+skill4 = 101; 35.0
+skill5 = 105; 45.0
+skill6 = 106; 45.0
+skill7 = 10052; 40.0
+skill8 = 1023; 40.0
+combatDamageType = 9
+handDamage = 0.0
+kickDamage = 0.0
+biteDamage = 5.0
+headButtDamage = 0.0
+breathDamage = 8.0
+breathDamString = astral breath
+butcheredItems = 141;55;55;59;59;45;45;141
+meatMaterial = 87
+types = 29;3;18;7;13;6;39;12;41;16
+speed = 0.4
+moveRate = 200
+aggressivity = 95
+bodyType = 9
+maxHuntDistance = 8
+vision = 12
+physicalResistance = 0.75
+fireVulnerability = 1.25
+ghost = true

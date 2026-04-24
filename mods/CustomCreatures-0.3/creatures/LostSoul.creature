@@ -1,0 +1,45 @@
+
+
+
+name = Lost Soul
+
+sizeModifier = 48; 48; 48
+modelName = model.creature.humanoid.human.skeleton
+dimension = 40; 100; 50
+color = 77; 77; 77
+naturalArmour = 0.7
+baseCombatRating = 4.0
+hasHands = true
+alignment = -80.0
+maxAge = 100
+armourType = 1
+maxGroupAttackSize = 5
+deathSounds = sound.combat.death.skeleton ; sound.combat.death.skeleton
+hitSounds = sound.combat.hit.skeleton ; sound.combat.hit.skeleton
+skill1 = 102; 30.0
+skill2 = 103; 35.0
+skill3 = 104; 35.0
+skill4 = 101; 35.0
+skill5 = 105; 35.0
+skill6 = 106; 35.0
+skill7 = 10052; 15.0
+skill8 = 1023; 15.0
+combatDamageType = 9
+ghost = true
+handDamage = 2.0
+kickDamage = 4.0
+biteDamage = 0.0
+headButtDamage = 5.0
+breathDamage = 0.0
+handDamString = freeze
+kickDamString = coldburn
+headbuttDamString = slam
+butcheredItems = 59;59;59
+meatMaterial = 87
+types = 29;16;7;13;6;39;6
+speed = 1
+moveRate = 1200
+aggressivity = 76
+bodyType = 0
+maxHuntDistance = 8
+vision = 6

@@ -1,0 +1,53 @@
+
+
+
+name = Forest Guardian
+
+sizeModifier = 12; 12; 12
+modelName = model.creature.humanoid.giant.manifestation
+noCorpse = true
+dimension = 35; 100; 50
+color = 255; 255; 255
+naturalArmour = 0.2
+baseCombatRating = 30.0
+hasHands = true
+alignment = -80.0
+maxAge = 150
+armourType = 3
+maxGroupAttackSize = 32
+deathSounds = sound.death.fo.manifestation ; sound.death.fo.manifestation
+hitSounds = sound.combat.hit.fo.manifestation ; sound.combat.hit.fo.manifestation
+skill1 = 102; 60.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 65.0
+skill8 = 1023; 50.0
+combatDamageType = 10
+handDamage = 10.0
+kickDamage = 14.0
+biteDamage = 0.0
+headButtDamage = 0.0
+breathDamage = 30.0
+handDamString = smash
+kickDamString = stomp
+breathDamString = corroding breath
+butcheredItems = 688;688;688;688;688;688;688;688
+meatMaterial = 87
+types = 29;7;13;6;39;30;16;62;18
+speed = 1.0
+moveRate = 600
+aggressivity = 75
+bodyType = 4
+maxHuntDistance = 16
+vision = 12
+combatMoves = 1
+fireVulnerability = 1.25
+poisonResistance = 0.75
+acidResistance = 0.75
+encounter1 = TILE_TREE_WILLOW; 3; 5
+encounter2 = TILE_TREE_OAK; 3; 5
+encounter3 = TILE_MARSH; 1; 1
+maxPercentOfCreatures = 0.01

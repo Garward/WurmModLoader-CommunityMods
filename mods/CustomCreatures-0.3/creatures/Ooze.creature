@@ -1,0 +1,49 @@
+
+
+
+name = Ooze
+
+sizeModifier = 134; 134; 134
+modelName = model.blob
+corpseName = fogspider
+dimension = 25; 100; 50
+color = 22; 212; 32
+naturalArmour = 0.45
+baseCombatRating = 15.0
+hasHands = false
+alignment = -30.0
+maxAge = 100
+armourType = 3
+maxGroupAttackSize = 6
+deathSounds = sound.death.snake; sound.death.snake
+hitSounds = sound.combat.hit.snake; sound.combat.hit.snake
+skill1 = 102; 50.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 50.0
+skill8 = 1023; 40.0
+combatDamageType = 10
+handDamage = 8.0
+kickDamage = 8.0
+biteDamage = 0.0
+headButtDamage = 10.0
+breathDamage = 10.0
+handDamString = squeze
+kickDamString = squeze
+breathDamString = spit
+butcheredItems = 73;73
+meatMaterial = 87
+types = 29;16;7;13;6;39
+speed = 1.0
+moveRate = 1200
+aggressivity = 58
+bodyType = 9
+maxHuntDistance = 12
+vision = 8
+physicalResistance = 0.6
+coldVulnerability = 1.4
+encounter1 = TILE_MARSH; 3; 4
+maxPercentOfCreatures = 0.02

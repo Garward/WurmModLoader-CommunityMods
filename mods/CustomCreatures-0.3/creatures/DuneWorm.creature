@@ -1,0 +1,53 @@
+
+# Big worm scary! Hard to solo, especially if its fierce,harden,champ and old (gives good fs after 70
+# (0.02-0.03fs)) has high butcher difficulty but contains lot of fat/gland/eggs(double size of chicken like 14-16eggs)
+
+name = Dune Worm
+
+sizeModifier = 188; 188; 188
+modelName = model.creature.spawn.uttacha
+corpseName = spawnofuttacha
+dimension = 55; 100; 50
+color = 101;67;33
+naturalArmour = 0.10
+baseCombatRating = 50.0
+hasHands = false
+alignment = -60.0
+maxAge = 150
+armourType = 3
+maxGroupAttackSize = 12
+deathSounds = sound.death.uttacha.spawn ; sound.death.uttacha.spawn
+hitSounds = sound.combat.hit.deathcrawler ; sound.combat.hit.deathcrawler
+skill1 = 102; 70.0
+skill2 = 103; 50.0
+skill3 = 104; 80.0
+skill4 = 101; 60.0
+skill5 = 105; 60.0
+skill6 = 106; 60.0
+skill7 = 10052; 70.0
+skill8 = 10053; 50.0
+skill9 = 10054; 50.0
+skill10 = 10055; 70.0
+skill11 = 1023; 90.0
+combatDamageType = 9
+handDamage = 15.0
+kickDamage = 20.0
+biteDamage = 35.0
+headButtDamage = 0.0
+breathDamage = 35.0
+handDamString = chew
+kickDamString = chew
+headbuttDamString = devour
+breathDamString = sand breath
+butcheredItems = 310;310;310;140;140;140;140;140;464;464;464;464;464;464;464;464;313;313
+meatMaterial = 87
+types = 29;16;6;40;13;30;18;8;7;62
+speed = 1.8
+moveRate = 300
+aggressivity = 85
+bodyType = 9
+maxHuntDistance = 32
+vision = 16
+combatMoves = 7;8
+encounter1 = TILE_SAND; 1; 1
+maxPercentOfCreatures = 0.001

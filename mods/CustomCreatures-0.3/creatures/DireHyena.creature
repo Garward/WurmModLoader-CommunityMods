@@ -1,0 +1,47 @@
+
+
+
+name = Dire Hyena
+
+sizeModifier = 74; 74; 74
+modelName = model.creature.quadraped.hyena.rabid
+corpseName = troll.butchered
+dimension = 40; 120; 50
+naturalArmour = 0.3
+baseCombatRating = 18.0
+hasHands = false
+alignment = -30.0
+maxAge = 100
+armourType = 2
+maxGroupAttackSize = 6
+deathSounds = sound.death.dog;sound.death.dog
+hitSounds = sound.combat.hit.dog;sound.combat.hit.dog
+skill1 = 102; 40.0
+skill2 = 103; 40.0
+skill3 = 104; 40.0
+skill4 = 101; 30.0
+skill5 = 105; 30.0
+skill6 = 106; 30.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+combatDamageType = 2
+handDamage = 7.0
+kickDamage = 0.0
+biteDamage = 14.0
+headButtDamage = 0.0
+breathDamage = 0.0
+handDamString = claw
+kickDamString = bite
+headbuttDamString = bite
+butcheredItems = 140;303;302;305;308
+meatMaterial = 87
+types = 29;3;18;7;6;13;39;32;12;41;32
+speed = 1.2
+moveRate = 400
+aggressivity = 65
+bodyType = 3
+maxHuntDistance = 16
+vision = 12
+coldResistance = 0.75
+encounter1 = TILE_STEPPE; 3; 4
+maxPercentOfCreatures = 0.02

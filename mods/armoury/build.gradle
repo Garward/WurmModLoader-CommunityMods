@@ -1,0 +1,54 @@
+import org.gradle.api.tasks.bundling.Zip
+
+group "com.garward.wurmmodloader.community"
+version "4.1.0"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly fileTree(dir: "${rootDir}/libs", include: ["wurmmodloader-api-*.jar", "wurmmodloader-legacy-*.jar"])
+
+    def wurmServerDir = rootProject.ext.wurmServerDir
+    compileOnly files(
+        "${wurmServerDir}/server.jar",
+        "${wurmServerDir}/common.jar"
+    )
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.jar {
+    archiveBaseName.set(project.name)
+    archiveVersion.set("")  // No version in JAR name for legacy discovery compatibility
+
+    manifest {
+        attributes(
+            "Implementation-Title": "Armoury Mod",
+            "Implementation-Version": project.version,
+            "Built-By": "WurmModLoader"
+        )
+    }
+}
+
+// Task to create distribution structure
+tasks.register("modDistribution", Zip) {
+    archiveBaseName.set("armoury")
+    archiveVersion.set(project.version.toString())
+
+    from(tasks.jar) {
+        into("mods/armoury")
+    }
+
+    from("src/dist") {
+        into("mods")
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.named("modDistribution"))
+}

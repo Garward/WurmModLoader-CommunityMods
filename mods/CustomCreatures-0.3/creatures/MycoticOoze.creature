@@ -1,0 +1,49 @@
+
+
+
+name = Mycotic ooze
+
+sizeModifier = 74;74;74
+modelName = model.blob
+corpseName = fogspider
+dimension = 30; 120; 50
+color = 70; 180; 60;
+naturalArmour = 0.5
+baseCombatRating = 8.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 3
+maxGroupAttackSize = 12
+deathSounds = sound.death.snake ; sound.death.snake
+hitSounds = sound.combat.hit.snake ; sound.combat.hit.snake
+skill1 = 102; 25.0
+skill2 = 103; 30.0
+skill3 = 104; 30.0
+skill4 = 101; 30.0
+skill5 = 105; 30.0
+skill6 = 106; 30.0
+skill7 = 10052; 40.0
+skill8 = 1023; 30.0
+combatDamageType = 5
+handDamage = 4.0
+kickDamage = 5.0
+biteDamage = 0.0
+headButtDamage = 0.0
+breathDamage = 8.0
+handDamString = toxic squeze
+kickDamString = toxic squeze
+breathDamString = spit
+butcheredItems = 73;73;310;59
+meatMaterial = 87
+types = 29;3;18;7;13;6;39;64;12;41;16
+speed = 0.8
+moveRate = 1000
+aggressivity = 95
+bodyType = 9
+maxHuntDistance = 8
+vision = 12
+fireVulnerability = 1.25
+poisonResistance = 0.75
+acidResistance = 0.75
+physicalResistance = 0.75

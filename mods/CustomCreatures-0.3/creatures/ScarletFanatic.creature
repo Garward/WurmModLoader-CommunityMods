@@ -1,0 +1,46 @@
+
+
+
+name = Scarlet Fanatic
+
+sizeModifier = 87; 87; 87
+modelName = model.creature.humanoid.human.guard.tower.male.molr
+dimension = 25; 100; 50
+color = 255; 255; 255
+naturalArmour = 0.08
+baseCombatRating = 30.0
+hasHands = true
+alignment = -80.0
+maxAge = 150
+armourType = 3
+maxGroupAttackSize = 32
+deathSounds = sound.death.male ; sound.death.female
+hitSounds = sound.combat.hit.male ; sound.combat.hit.female
+skill1 = 102; 50.0
+skill2 = 103; 50.0
+skill3 = 104; 50.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 70.0
+skill8 = 1023; 70.0
+combatDamageType = 4
+handDamage = 12.0
+kickDamage = 15.0
+biteDamage = 0.0
+headButtDamage = 0.0
+breathDamage = 15.0
+handDamString = fiery slice
+kickDamString = fiery kick
+breathDamString = fire breath
+butcheredItems = 54
+meatMaterial = 81
+types = 29;7;13;6;39;30;16;62
+speed = 1.4
+moveRate = 1200
+aggressivity = 99
+bodyType = 0
+maxHuntDistance = 16
+vision = 16
+fireResistance = 1.35
+coldVulnerability = 0.70

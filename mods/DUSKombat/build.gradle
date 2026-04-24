@@ -1,0 +1,54 @@
+import org.gradle.api.tasks.bundling.Zip
+
+group "mod.sin"
+version "2.1"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Framework — events, SubscribeEvent, legacy interfaces
+    compileOnly fileTree(dir: "${rootDir}/libs", include: ["wurmmodloader-api-*.jar", "wurmmodloader-legacy-*.jar"])
+
+    def wurmServerDir = rootProject.ext.wurmServerDir
+    compileOnly files(
+        "${wurmServerDir}/server.jar",
+        "${wurmServerDir}/common.jar"
+    )
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.jar {
+    archiveBaseName.set(project.name)
+    archiveVersion.set("")  // No version in JAR name — loader matches by folder/file name
+
+    manifest {
+        attributes(
+            "Implementation-Title": "DUSKombat",
+            "Implementation-Version": project.version,
+            "Built-By": "WurmModLoader"
+        )
+    }
+}
+
+tasks.register("modDistribution", Zip) {
+    archiveBaseName.set("DUSKombat")
+    archiveVersion.set(project.version.toString())
+
+    from(tasks.jar) {
+        into("mods/DUSKombat")
+    }
+
+    from("mods") {
+        into("mods")
+    }
+}
+
+tasks.build {
+    dependsOn(tasks.named("modDistribution"))
+}

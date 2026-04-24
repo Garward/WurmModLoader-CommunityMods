@@ -1,0 +1,48 @@
+
+# mission creature, passive animal but acts like a zombie pet you can tame if
+# you dont have rebirth,stronger version of the zombie
+
+name = Embalmed Monstrosity
+sizeModifier = 27;27;27
+modelName = model.creature.humanoid.kyklops
+noCorpse = true
+dimension = 35; 140; 50
+color = 44; 99; 44
+naturalArmour = 0.25
+baseCombatRating = 25.0
+hasHands = true
+alignment = -80.0
+maxAge = 1000
+armourType = 3
+maxGroupAttackSize = 8
+deathSounds = sound.death.giant ; sound.death.giant
+hitSounds = sound.combat.hit.giant ; sound.combat.hit.giant
+skill1 = 102; 50.0
+skill2 = 103; 70.0
+skill3 = 104; 35.0
+skill4 = 101; 50.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 30.0
+skill8 = 1023; 50.0
+combatDamageType = 10
+handDamage = 10.0
+kickDamage = 12.0
+biteDamage = 15.0
+headButtDamage = 0.0
+breathDamage = 25.0
+handDamString = smack
+kickDamString = stomp
+breathDamString = acid vomit
+butcheredItems = 92;140;308;308;636
+meatMaterial = 87
+types = 18;13;12;7;3;29;30;32;39;62
+speed = 1.3
+moveRate = 1200
+aggressivity = 84
+bodyType = 5
+maxHuntDistance = 12
+vision = 12
+fireVulnerability = 1.25
+poisonResistance = 0.75
+acidResistance = 0.75

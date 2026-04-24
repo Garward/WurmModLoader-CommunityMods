@@ -1,0 +1,59 @@
+
+# Unique, stronger than goblin leader (+7cr +bit more armor and 1 extra attack
+# fan of knives (breath dmg) ,butcher gives rare bone + star ruby,emerald,saph,skull
+# (gives blood as well)
+
+name = Bokrug
+
+sizeModifier = 244; 244; 244
+modelName = model.creature.deathcrawler
+corpseName = deathcrawlerminion
+dimension = 50; 100; 50
+color = 105; 255; 155
+naturalArmour = 0.04
+baseCombatRating = 95.0
+hasHands = false
+alignment = -80.0
+maxAge = 10000
+armourType = 5
+maxGroupAttackSize = 50
+deathSounds = sound.death.deathcrawler ; sound.death.deathcrawler
+hitSounds = sound.combat.hit.deathcrawler ; sound.combat.hit.deathcrawler
+skill1 = 102; 50.0
+skill2 = 103; 60.0
+skill3 = 104; 50.0
+skill4 = 101; 40.0
+skill5 = 105; 40.0
+skill6 = 106; 50.0
+skill7 = 10052; 80.0
+skill8 = 10053; 50.0
+skill9 = 10054; 50.0
+skill10 = 10055; 50.0
+skill11 = 1023; 80.0
+skill12 = 100; 40.0
+combatDamageType = 10
+handDamage = 20.0
+kickDamage = 0.0
+biteDamage = 35.0
+headButtDamage = 25.0
+breathDamage = 40.0
+handDamString = acid claw
+kickDamString = smash
+biteDamString = deadly bite
+breathDamString = IMPENDING DOOM
+butcheredItems = 867;868
+meatMaterial = 87
+types = 29;7;13;6;39;30;16;20;30;40;45;62
+speed = 1.6
+moveRate = 800
+aggressivity = 99
+bodyType = 3
+maxHuntDistance = 32
+vision = 20
+combatMoves = 1
+fireResistance = 1.40
+acidResistance = 1.40
+biteResistance = 1.30
+coldVulnerability = 0.70
+poisonVulnerability = 0.70
+pierceVulnerability = 0.70

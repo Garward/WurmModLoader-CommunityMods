@@ -1,0 +1,54 @@
+
+# Unique, stronger than dragons but weaker than forest giant/troll/cyclops
+# (drops blood which is carpenter) a bone, skull, does mostly fire dmg,
+# resist fire but takes more cold dmg
+
+name = Scarlet Slaughter Demon
+
+sizeModifier = 268; 268; 268
+modelName = model.creature.humanoid.demon.sol
+corpseName = troll.butchered
+dimension = 50; 100; 50
+color = 222; 18; 18
+naturalArmour = 0.04
+baseCombatRating = 90.0
+hasHands = true
+alignment = -80.0
+maxAge = 10000
+armourType = 2
+maxGroupAttackSize = 50
+deathSounds = sound.death.demon ; sound.death.demon
+hitSounds = sound.combat.hit.demon ; sound.combat.hit.demon
+skill1 = 102; 70.0
+skill2 = 103; 80.0
+skill3 = 104; 60.0
+skill4 = 101; 40.0
+skill5 = 105; 70.0
+skill6 = 106; 70.0
+skill7 = 10052; 80.0
+skill8 = 10053; 70.0
+skill9 = 10054; 70.0
+skill10 = 10055; 70.0
+skill11 = 1023; 80.0
+skill12 = 100; 50.0
+combatDamageType = 4
+handDamage = 15.0
+kickDamage = 0.0
+biteDamage = 35.0
+headButtDamage = 0.0
+breathDamage = 45.0
+handDamString = molten strike
+biteDamString = molten bite
+breathDamString = hellfire
+butcheredItems = 867;868;376;377;377;887;666
+meatMaterial = 87
+types = 29;7;13;6;39;30;16;20;30;40;45;55;62
+speed = 1.6
+moveRate = 800
+aggressivity = 99
+bodyType = 0
+maxHuntDistance = 32
+vision = 20
+combatMoves = 1;8;5
+fireResistance = 1.35
+coldVulnerability = 0.70

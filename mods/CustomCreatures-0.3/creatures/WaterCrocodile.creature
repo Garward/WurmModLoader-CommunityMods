@@ -1,0 +1,45 @@
+
+
+
+name = Deepsea Crocodile
+
+sizeModifier 78;78;78
+modelName = model.creature.quadraped.crocodile
+corpseName = crocodile
+dimension = 30; 120; 50
+color = 33; 33; 144
+naturalArmour = 0.40
+baseCombatRating = 12.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 3
+maxGroupAttackSize = 8
+deathSounds = sound.death.croc ; sound.death.croc
+hitSounds = sound.combat.hit.croc ; sound.combat.hit.croc
+skill1 = 102; 35.0
+skill2 = 103; 40.0
+skill3 = 104; 30.0
+skill4 = 101; 35.0
+skill5 = 105; 40.0
+skill6 = 106; 40.0
+skill7 = 10052; 40.0
+skill8 = 1023; 40.0
+combatDamageType = 8
+handDamage = 4.0
+kickDamage = 0.0
+biteDamage = 8.0
+headButtDamage = 0.0
+breathDamage = 10.0
+breathDamString = frost breath
+butcheredItems = 92;305;71;310
+meatMaterial = 87
+types = 29;3;18;7;13;6;39;32;12;41;16;18
+speed = 0.9
+moveRate = 400
+aggressivity = 95
+bodyType = 3
+maxHuntDistance = 8
+vision = 12
+coldResistance = 0.75
+fireVulnerability = 1.25

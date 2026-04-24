@@ -1,0 +1,48 @@
+
+# mission creature, passive animal but acts like
+# a zombie pet you can tame if you dont have rebirth
+
+name = Embalmed Zombie
+sizeModifier = 78;78;78
+modelName = model.creature.humanoid.human.player.zombie.male
+dimension = 25; 140; 50
+color = 44; 99; 44
+naturalArmour = 0.30
+baseCombatRating = 20.0
+hasHands = true
+alignment = -80.0
+maxAge = 1000
+armourType = 3
+maxGroupAttackSize = 8
+deathSounds = sound.death.zombie ; sound.death.zombie
+hitSounds = sound.combat.hit.zombie ; sound.combat.hit.zombie
+skill1 = 102; 40.0
+skill2 = 103; 40.0
+skill3 = 104; 40.0
+skill4 = 101; 40.0
+skill5 = 105; 30.0
+skill6 = 106; 30.0
+skill7 = 10052; 30.0
+skill8 = 1023; 50.0
+combatDamageType = 0
+handDamage = 8.0
+kickDamage = 10.0
+biteDamage = 10.0
+headButtDamage = 10.0
+breathDamage = 20.0
+handDamString = slam
+kickDamString = kick
+headbuttDamString = smack
+breathDamString = acid vomit
+butcheredItems = 92;140;308;308;636
+meatMaterial = 87
+types = 18;13;12;7;3;29;30;32;39;62
+speed = 1.4
+moveRate = 1200
+aggressivity = 84
+bodyType = 0
+maxHuntDistance = 12
+vision = 12
+fireVulnerability = 1.25
+poisonResistance = 0.75
+acidResistance = 0.75

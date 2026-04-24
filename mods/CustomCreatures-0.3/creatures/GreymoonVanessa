@@ -1,0 +1,49 @@
+
+
+
+name = Vanessa Greymoon
+
+sizeModifier = 84; 84; 84
+modelName = model.creature.humanoid.human.wagoner.female
+dimension = 25; 100; 50
+noCorpse = true
+color = 255; 255; 255
+naturalArmour = 0.10
+baseCombatRating = 18.0
+hasHands = true
+alignment = -30.0
+maxAge = 100
+armourType = 5
+maxGroupAttackSize = 12
+deathSounds = sound.death.male ; sound.death.female
+hitSounds = sound.combat.hit.male ; sound.combat.hit.female
+skill1 = 102; 40.0
+skill2 = 103; 65.0
+skill3 = 104; 65.0
+skill4 = 101; 50.0
+skill5 = 105; 60.0
+skill6 = 106; 60.0
+skill7 = 10052; 50.0
+skill8 = 1023; 50.0
+combatDamageType = 9
+handDamage = 6.0
+kickDamage = 10.0
+biteDamage = 0.0
+headButtDamage = 8.0
+breathDamage = 15.0
+handDamString = quickthrust
+kickDamString = vital kick
+headbuttDamString = smack
+breathDamString = ASSASSINATE
+butcheredItems = 50;50;50;50;50;54;54;54;59;59;59
+meatMaterial = 80
+types = 29;7;13;6;39;30;16;61;62;18
+speed = 1
+moveRate = 1200
+aggressivity = 84
+bodyType = 0
+maxHuntDistance = 7
+vision = 12
+combatMoves = 1
+sex = 1
+keepSex = true

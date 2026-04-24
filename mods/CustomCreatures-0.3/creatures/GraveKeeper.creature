@@ -1,0 +1,47 @@
+
+
+
+name = Grave Keeper
+
+sizeModifier = 54; 54; 54
+modelName = model.creature.humanoid.jackal.rift
+dimension = 40; 100; 50
+color = 255; 255; 255
+naturalArmour = 0.4
+baseCombatRating = 18.0
+hasHands = true
+alignment = -30.0
+maxAge = 100
+armourType = 5
+maxGroupAttackSize = 6
+deathSounds = sound.death.troll ; sound.death.troll
+hitSounds = sound.combat.hit.troll ; sound.combat.hit.troll
+skill1 = 102; 50.0
+skill2 = 103; 45.0
+skill3 = 104; 45.0
+skill4 = 101; 45.0
+skill5 = 105; 45.0
+skill6 = 106; 45.0
+skill7 = 10052; 55.0
+skill8 = 1023; 50.0
+combatDamageType = 9
+handDamage = 6.0
+kickDamage = 10.0
+biteDamage = 0.0
+headButtDamage = 0.0
+breathDamage = 6.0
+breathDamString = astral breath
+handDamString = astral slice
+kickDamString = soul slice
+butcheredItems = 141;141;141;1307;1307;1307
+meatMaterial = 87
+types = 29;16;7;13;6;39;6
+speed = 1
+moveRate = 1200
+aggressivity = 76
+bodyType = 0
+maxHuntDistance = 8
+vision = 8
+ghost = true
+physicalResistance = 0.6
+fireVulnerability = 1.4

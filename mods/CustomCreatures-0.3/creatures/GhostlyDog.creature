@@ -1,0 +1,47 @@
+
+
+
+name = Ghostly Dog
+
+sizeModifier = 74;74;74
+modelName = model.creature.quadraped.dog
+dimension = 30; 120; 50
+color = 70; 180; 60
+naturalArmour = 0.70
+baseCombatRating = 5.0
+hasHands = false
+alignment = -30.0
+maxAge = 200
+armourType = 3
+maxGroupAttackSize = 8
+deathSounds = sound.death.dog ; sound.death.dog
+hitSounds = sound.combat.hit.dog ; sound.combat.hit.dog
+skill1 = 102; 30.0
+skill2 = 103; 25.0
+skill3 = 104; 25.0
+skill4 = 101; 30.0
+skill5 = 105; 30.0
+skill6 = 106; 30.0
+skill7 = 10052; 20.0
+skill8 = 1023; 20.0
+combatDamageType = 9
+handDamage = 2.0
+kickDamage = 0.0
+biteDamage = 5.0
+headButtDamage = 0
+breathDamage = 5.0
+handDamString = astral claw
+biteDamString = astral bite
+breathDamString = astral breath
+butcheredItems = 141;55;55;59;59
+meatMaterial = 87
+types = 29;3;18;7;13;6;39;32;12;41;16
+speed = 1.0
+moveRate = 400
+aggressivity = 95
+bodyType = 3
+maxHuntDistance = 8
+vision = 12
+physicalResistance = 0.75
+fireVulnerability = 1.25
+ghost = true

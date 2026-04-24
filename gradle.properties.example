@@ -1,0 +1,10 @@
+# Copy this to ~/.gradle/gradle.properties (recommended — never enters the repo)
+# OR to a local gradle.properties at this directory's root (gitignored).
+# OR set the corresponding environment variable instead.
+
+# Path to your Wurm Unlimited Dedicated Server install.
+# Steam default on Linux:   ~/.local/share/Steam/steamapps/common/Wurm Unlimited Dedicated Server
+# Steam default on Windows: C:/Program Files (x86)/Steam/steamapps/common/Wurm Unlimited Dedicated Server
+wurmServerDir=/absolute/path/to/Wurm Unlimited Dedicated Server
+
+# Equivalent environment variable: WURM_SERVER_DIR

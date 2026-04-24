@@ -1,0 +1,47 @@
+
+
+
+name = Sand Giant
+
+sizeModifier = 48; 48; 48
+modelName = model.creature.humanoid.giant.forest
+corpseName = forestgiant
+dimension = 35; 100; 50
+color = 101;67;33
+naturalArmour = 0.20
+baseCombatRating = 30.0
+hasHands = true
+alignment = -30.0
+maxAge = 100
+armourType = 5
+maxGroupAttackSize = 8
+deathSounds = sound.death.troll ; sound.death.troll
+hitSounds = sound.combat.hit.troll ; sound.combat.hit.troll
+skill1 = 102; 60.0
+skill2 = 103; 50.0
+skill3 = 104; 40.0
+skill4 = 101; 40.0
+skill5 = 105; 50.0
+skill6 = 106; 50.0
+skill7 = 10052; 60.0
+skill8 = 1023; 60.0
+combatDamageType = 0
+handDamage = 10.0
+kickDamage = 14.0
+biteDamage = 0.0
+headButtDamage = 15.0
+breathDamage = 0.0
+handDamString = maul
+kickDamString = stomp
+headbuttDamString = smash
+butcheredItems = 636;308;310;92
+meatMaterial = 81
+types = 29;16;6;40;13;30;18;62
+speed = 1.0
+moveRate = 1600
+aggressivity = 84
+bodyType = 4
+maxHuntDistance = 16
+vision = 12
+encounter1 = TILE_SAND; 2; 1
+maxPercentOfCreatures = 0.015

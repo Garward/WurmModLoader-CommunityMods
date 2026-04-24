@@ -1,0 +1,45 @@
+
+
+
+name = Gnawtooth Kobold
+
+sizeModifier = 84; 84; 84
+modelName = model.creature.humanoid.goblin
+corpseName = goblin
+dimension = 30; 120; 50
+color = 165; 42; 42
+naturalArmour = 0.65
+baseCombatRating = 4.0
+hasHands = true
+alignment = -30.0
+maxAge = 60
+armourType = 3
+maxGroupAttackSize = 8
+deathSounds = sound.death.goblin ; sound.death.goblin
+hitSounds = sound.combat.hit.goblin ; sound.combat.hit.goblin
+skill1 = 102; 30.0
+skill2 = 103; 30.0
+skill3 = 104; 35.0
+skill4 = 101; 30.0
+skill5 = 105; 30.0
+skill6 = 106; 30.0
+skill7 = 10052; 20.0
+skill8 = 1023; 10.0
+combatDamageType = 9
+handDamage = 2.0
+kickDamage = 4.0
+biteDamage = 4.0
+headButtDamage = 3.0
+breathDamage = 0.0
+handDamString = bleeding claw
+kickDamString = bleeding kick
+headbuttDamString = bite
+butcheredItems = 303;308;310
+meatMaterial = 81
+types = 6;7;13;16;29;30;32;34;45;62;18;32
+speed = 0.8
+moveRate = 1500
+aggressivity = 95
+bodyType = 0
+maxHuntDistance = 6
+vision = 10
