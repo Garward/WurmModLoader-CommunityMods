@@ -35,20 +35,23 @@ tasks.register<Jar>("modJar") {
     from(sourceSets.main.get().output)
     archiveBaseName.set("spellcraft")
     archiveVersion.set("")
-    destinationDirectory.set(file("${projectDir}/dist/spellcraft"))
+    destinationDirectory.set(file("${projectDir}/dist/mods/spellcraft"))
 }
 
 // Create mod distribution (JAR + properties/config files)
 tasks.register<Copy>("modDistribution") {
     dependsOn("modJar")
-
-    // Copy properties and config files to local dist/ root
-    from("src/dist") {
-        include("*.properties", "*.config")
-    }
-    into("${projectDir}/dist")
+    from("src/dist")
+    into("${projectDir}/dist/mods/spellcraft")
 }
 
 tasks.named("build") {
     dependsOn("modDistribution")
+}
+
+tasks.register<Copy>("deployMod") {
+    dependsOn("modDistribution")
+    val wurmServerDir: String by rootProject.extra
+    from(layout.projectDirectory.dir("dist/mods/spellcraft"))
+    into("$wurmServerDir/mods/spellcraft")
 }

@@ -1,36 +1,31 @@
 rootProject.name = "wurmmodloader-communitymods"
 
+// --- Local property overrides (gitignored) ---
+// `gradle.properties.local` at this directory carries personal paths like
+// wurmServerDir / wurmClientDir. Loaded into Gradle project properties so the
+// build sees them just like committed gradle.properties entries.
+val localProps = file("gradle.properties.local")
+if (localProps.exists()) {
+    val props = java.util.Properties()
+    localProps.inputStream().use { props.load(it) }
+    gradle.beforeProject {
+        props.forEach { k, v -> extra[k.toString()] = v.toString() }
+    }
+}
+
+
 // Framework modules are JAR dependencies in libs/ — drop the
 // wurmmodloader-*.jar files there from a built WurmModLoader release.
 
-// Example mods
-include("examples:oversizedclub")
-project(":examples:oversizedclub").projectDir = file("examples/oversizedclub")
-
 // Power Fantasy RPG mods
-include("mods:materialsystem")
-project(":mods:materialsystem").projectDir = file("mods/materialsystem")
-
-include("mods:soulboundgear")
-project(":mods:soulboundgear").projectDir = file("mods/soulboundgear")
-
-include("mods:upgradetree")
-project(":mods:upgradetree").projectDir = file("mods/upgradetree")
-
 include("mods:powerscaling")
 project(":mods:powerscaling").projectDir = file("mods/powerscaling")
-
-include("mods:eventlister")
-project(":mods:eventlister").projectDir = file("mods/eventlister")
 
 include("mods:armoury")
 project(":mods:armoury").projectDir = file("mods/armoury")
 
 include("mods:DUSKombat")
 project(":mods:DUSKombat").projectDir = file("mods/DUSKombat")
-
-include("mods:timerfix")
-project(":mods:timerfix").projectDir = file("mods/timerfix")
 
 include("mods:bagofholding")
 project(":mods:bagofholding").projectDir = file("mods/bagofholding")
@@ -41,8 +36,8 @@ project(":mods:betterdig").projectDir = file("mods/betterdig")
 include("mods:betterfarm")
 project(":mods:betterfarm").projectDir = file("mods/betterfarm")
 
-include("mods:adminterrain")
-project(":mods:adminterrain").projectDir = file("mods/adminterrain")
+// adminterrain, eventlister, materialsystem, soulboundgear, timerfix, upgradetree
+// removed — empty stubs with no implementation.
 
 // Ago's legacy mods (to be modernized)
 include("mods:announcer")

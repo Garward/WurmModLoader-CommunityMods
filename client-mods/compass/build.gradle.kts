@@ -10,15 +10,6 @@ if (wurmClientDir.isEmpty()) {
     )
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir(".")
-            include("compass.properties")
-        }
-    }
-}
-
 dependencies {
     compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-api-0.3.0.jar"))
 
@@ -43,8 +34,8 @@ tasks.register<Copy>("modDistribution") {
     from(tasks.jar.get().archiveFile) {
         into("mods/compass")
     }
-    from("compass.properties") {
-        into("mods")
+    from("src/dist") {
+        into("mods/compass")
     }
     into("${projectDir}/dist")
 }
@@ -55,9 +46,7 @@ tasks.build {
 
 tasks.register<Copy>("deployMod") {
     dependsOn(tasks.jar)
-    from(tasks.jar.get().archiveFile) {
-        into("compass")
-    }
-    from("compass.properties")
-    into("$wurmClientDir/mods")
+    from(tasks.jar.get().archiveFile)
+    from("src/dist")
+    into("$wurmClientDir/mods/compass")
 }

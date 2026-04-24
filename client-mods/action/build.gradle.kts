@@ -10,15 +10,6 @@ if (wurmClientDir.isEmpty()) {
     )
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir(".")
-            include("action.properties")
-        }
-    }
-}
-
 dependencies {
     compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-api-0.3.0.jar"))
     compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-core-0.3.0.jar"))
@@ -44,8 +35,8 @@ tasks.register<Copy>("modDistribution") {
     from(tasks.jar.get().archiveFile) {
         into("mods/action")
     }
-    from("action.properties") {
-        into("mods")
+    from("src/dist") {
+        into("mods/action")
     }
     into("${projectDir}/dist")
 }
@@ -56,9 +47,7 @@ tasks.build {
 
 tasks.register<Copy>("deployMod") {
     dependsOn(tasks.jar)
-    from(tasks.jar.get().archiveFile) {
-        into("action")
-    }
-    from("action.properties")
-    into("$wurmClientDir/mods")
+    from(tasks.jar.get().archiveFile)
+    from("src/dist")
+    into("$wurmClientDir/mods/action")
 }

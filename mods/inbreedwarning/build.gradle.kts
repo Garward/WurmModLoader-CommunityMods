@@ -37,20 +37,23 @@ tasks.register<Jar>("modJar") {
     from(sourceSets.main.get().output)
     archiveBaseName.set("inbreedwarning")
     archiveVersion.set("")
-    destinationDirectory.set(file("${projectDir}/dist/inbreedwarning"))
+    destinationDirectory.set(file("${projectDir}/dist/mods/inbreedwarning"))
 }
 
 // Create mod distribution (JAR + properties/config files)
 tasks.register<Copy>("modDistribution") {
     dependsOn("modJar")
-
-    // Copy properties and config files to local dist/ root
-    from("src/dist") {
-        include("*.properties", "*.config")
-    }
-    into("${projectDir}/dist")
+    from("src/dist")
+    into("${projectDir}/dist/mods/inbreedwarning")
 }
 
 tasks.named("build") {
     dependsOn("modDistribution")
+}
+
+tasks.register<Copy>("deployMod") {
+    dependsOn("modDistribution")
+    val wurmServerDir: String by rootProject.extra
+    from(layout.projectDirectory.dir("dist/mods/inbreedwarning"))
+    into("$wurmServerDir/mods/inbreedwarning")
 }

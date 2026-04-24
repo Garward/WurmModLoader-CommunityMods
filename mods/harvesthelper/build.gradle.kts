@@ -37,20 +37,23 @@ tasks.register<Jar>("modJar") {
     from(sourceSets.main.get().output)
     archiveBaseName.set("harvesthelper")
     archiveVersion.set("")
-    destinationDirectory.set(file("${projectDir}/dist/harvesthelper"))
+    destinationDirectory.set(file("${projectDir}/dist/mods/harvesthelper"))
 }
 
 // Create mod distribution (JAR + properties/config files)
 tasks.register<Copy>("modDistribution") {
     dependsOn("modJar")
-
-    // Copy properties and config files to local dist/ root
-    from("src/dist") {
-        include("*.properties", "*.config")
-    }
-    into("${projectDir}/dist")
+    from("src/dist")
+    into("${projectDir}/dist/mods/harvesthelper")
 }
 
 tasks.named("build") {
     dependsOn("modDistribution")
+}
+
+tasks.register<Copy>("deployMod") {
+    dependsOn("modDistribution")
+    val wurmServerDir: String by rootProject.extra
+    from(layout.projectDirectory.dir("dist/mods/harvesthelper"))
+    into("$wurmServerDir/mods/harvesthelper")
 }
