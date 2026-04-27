@@ -4,27 +4,18 @@ import com.garward.wurmmodloader.client.api.events.base.SubscribeEvent;
 import com.garward.wurmmodloader.client.api.events.client.ClientConsoleInputEvent;
 import com.garward.wurmmodloader.client.api.events.client.PlayerActionNameResolvedEvent;
 import com.garward.wurmmodloader.client.api.events.client.QuickActionRebindEvent;
+import com.garward.wurmmodloader.client.api.events.eventlogic.action.ClientItemReflect;
+import com.garward.wurmmodloader.client.api.events.eventlogic.action.PlayerActionDispatcher;
 import com.garward.wurmmodloader.client.api.events.lifecycle.ClientTickEvent;
 import com.garward.wurmmodloader.client.api.events.map.ClientHUDInitializedEvent;
 import com.garward.wurmmodloader.client.api.gui.ModHud;
 import com.garward.wurmmodloader.client.modloader.ProxyClientHook;
 
-import com.wurmonline.client.comm.ServerConnectionListenerClass;
-import com.wurmonline.client.game.inventory.InventoryMetaItem;
-import com.wurmonline.client.renderer.PickableUnit;
-import com.wurmonline.client.renderer.cell.CellRenderable;
-import com.wurmonline.client.renderer.cell.CreatureCellRenderable;
-import com.wurmonline.client.renderer.cell.GroundItemCellRenderable;
 import com.wurmonline.client.renderer.gui.HeadsUpDisplay;
-import com.wurmonline.client.renderer.gui.PaperDollSlot;
-import com.wurmonline.mesh.Tiles;
-import com.wurmonline.shared.constants.PlayerAction;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 /**
  * Port of Goldenflamer's fork of bdew's custom-action macro mod. Adds two
@@ -61,7 +52,7 @@ public class ActionClientMod {
     public void onHudInit(ClientHUDInitializedEvent event) {
         try {
             hud = (HeadsUpDisplay) event.getHud();
-            Reflect.setup();
+            ClientItemReflect.setup();
             ProxyClientHook.setDevOverride(true);
             logger.info("[ActionMod] Initialized — dev UI gates unlocked, macros armed.");
         } catch (Throwable t) {
@@ -163,97 +154,11 @@ public class ActionClientMod {
     }
 
     /**
-     * Run one action. Public so the macro-builder UI can reuse the exact same
-     * dispatch path as the console command (no parser drift).
+     * Run one action. Public so the macro-builder UI / other mods can reuse
+     * the exact same dispatch path as the console command (no parser drift).
      */
     public static void parseAct(short id, String target) throws ReflectiveOperationException {
-        if (hud == null) return;
-        PlayerAction act = new PlayerAction(id, PlayerAction.ANYTHING, "", false);
-        switch (target) {
-            case "hover":
-                hud.getWorld().sendHoveredAction(act);
-                break;
-            case "body": {
-                InventoryMetaItem body = Reflect.getBodyItem(hud.getPaperDollInventory());
-                if (body != null) hud.sendAction(act, body.getId());
-                break;
-            }
-            case "tile":
-                hud.getWorld().sendLocalAction(act);
-                break;
-            case "tile_n": sendLocalAction(act, 0, -1); break;
-            case "tile_s": sendLocalAction(act, 0, 1);  break;
-            case "tile_e": sendLocalAction(act, 1, 0);  break;
-            case "tile_w": sendLocalAction(act, -1, 0); break;
-            case "tile_ne": sendLocalAction(act, 1, -1); break;
-            case "tile_nw": sendLocalAction(act, -1, -1); break;
-            case "tile_se": sendLocalAction(act, 1, 1); break;
-            case "tile_sw": sendLocalAction(act, -1, 1); break;
-            case "tool": {
-                InventoryMetaItem t = Reflect.getActiveToolItem(hud);
-                if (t != null) hud.sendAction(act, t.getId());
-                else hud.consoleOutput("act: tool modifier requires an active tool selected");
-                break;
-            }
-            case "selected": {
-                PickableUnit p = Reflect.getSelectedUnit(hud.getSelectBar());
-                if (p != null) hud.sendAction(act, p.getId());
-                break;
-            }
-            case "area":
-                sendAreaAction(act);
-                break;
-            case "toolbelt":
-                if (id >= 1 && id <= 10) hud.setActiveTool(id - 1);
-                else hud.consoleOutput("act: Invalid toolbelt slot '" + id + "'");
-                break;
-            default:
-                if (target.startsWith("@tb")) {
-                    int slot = Integer.parseInt(target.substring(3));
-                    if (slot >= 1 && slot <= 10 && hud.getToolBelt().getItemInSlot(slot - 1) != null) {
-                        hud.sendAction(act, hud.getToolBelt().getItemInSlot(slot - 1).getId());
-                    } else {
-                        hud.consoleOutput("act: Invalid toolbelt slot '" + slot + "'");
-                    }
-                } else if (target.startsWith("@eq")) {
-                    byte slot = Byte.parseByte(target.substring(3));
-                    PaperDollSlot obj = Reflect.getFrameFromSlotnumber(hud.getPaperDollInventory(), slot);
-                    if (obj == null) {
-                        hud.consoleOutput("act: Invalid equipment slot " + slot);
-                    } else if (obj.getEquippedItem() == null) {
-                        hud.consoleOutput("act: No item in equipment slot " + slot);
-                    } else {
-                        hud.sendAction(act, obj.getEquippedItem().getId());
-                    }
-                } else if (target.startsWith("@nearby")) {
-                    float range = Float.parseFloat(target.substring(7));
-                    final float rangeSq = range * range;
-                    ServerConnectionListenerClass conn =
-                            hud.getWorld().getServerConnection().getServerConnectionListener();
-                    Collection<GroundItemCellRenderable> items = Reflect.getGroundItems(conn).values();
-                    Collection<CreatureCellRenderable> creatures = conn.getCreatures().values();
-                    Stream.concat(items.stream(), creatures.stream())
-                            .filter(x -> x.getSquaredLengthFromPlayer() < rangeSq)
-                            .mapToLong(CellRenderable::getId)
-                            .forEach(tid -> hud.sendAction(act, tid));
-                } else {
-                    hud.consoleOutput("act: Invalid target keyword '" + target + "'");
-                }
-        }
-    }
-
-    private static void sendAreaAction(PlayerAction action) {
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                sendLocalAction(action, dx, dy);
-            }
-        }
-    }
-
-    private static void sendLocalAction(PlayerAction action, int xo, int yo) {
-        int x = hud.getWorld().getPlayerCurrentTileX();
-        int y = hud.getWorld().getPlayerCurrentTileY();
-        hud.sendAction(action, Tiles.getTileId(x + xo, y + yo, 0));
+        PlayerActionDispatcher.dispatch(hud, id, target);
     }
 
     /** Exposed so the macro-builder UI can check for readiness. */
