@@ -11,8 +11,8 @@ if (wurmClientDir.isEmpty()) {
 }
 
 dependencies {
-    compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-api-0.3.0.jar"))
-    compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-core-0.3.0.jar"))
+    compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-api-0.4.0.jar"))
+    compileOnly(files("${rootProject.projectDir}/libs/wurmmodloader-client-core-0.4.0.jar"))
 
     compileOnly(files("$wurmClientDir/client.jar"))
     compileOnly(files("$wurmClientDir/common.jar"))
