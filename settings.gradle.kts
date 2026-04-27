@@ -69,6 +69,9 @@ project(":mods:scriptrunner").projectDir = file("mods/scriptrunner")
 include("mods:serverpacks")
 project(":mods:serverpacks").projectDir = file("mods/serverpacks")
 
+include("mods:declarativeui")
+project(":mods:declarativeui").projectDir = file("mods/declarativeui")
+
 include("mods:spellmod")
 project(":mods:spellmod").projectDir = file("mods/spellmod")
 
@@ -81,6 +84,9 @@ project(":mods:testmod").projectDir = file("mods/testmod")
 // Client-side mods (require wurmClientDir).
 include("client-mods:action")
 project(":client-mods:action").projectDir = file("client-mods/action")
+
+include("client-mods:automine")
+project(":client-mods:automine").projectDir = file("client-mods/automine")
 
 include("client-mods:compass")
 project(":client-mods:compass").projectDir = file("client-mods/compass")
