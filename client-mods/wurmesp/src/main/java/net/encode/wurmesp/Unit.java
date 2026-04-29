@@ -107,9 +107,12 @@ public class Unit {
 	
 	public boolean isAggroMob()
 	{
+		String hover = this.getHoverName();
+		if (hover == null) return false;
 		for(String mob : aggroMOBS)
 		{
-			if(this.getHoverName().contains(mob))
+			if (mob == null || mob.isEmpty()) continue;
+			if(hover.contains(mob))
 			{
 				return true;
 			}
@@ -127,9 +130,12 @@ public class Unit {
 	
 	public boolean isConditioned()
 	{
+		String hover = this.getHoverName();
+		if (hover == null) return false;
 		for(String condition : conditionedMOBS)
 		{
-			if(this.getHoverName().contains(condition))
+			if (condition == null || condition.isEmpty()) continue;
+			if(hover.contains(condition))
 			{
 				this.condition = condition;
 				return true;
@@ -137,12 +143,15 @@ public class Unit {
 		}
 		return false;
 	}
-	
+
 	public boolean isUnique()
 	{
+		String hover = this.getHoverName();
+		if (hover == null) return false;
 		for(String mob : uniqueMOBS)
 		{
-			if(this.getHoverName().contains(mob))
+			if (mob == null || mob.isEmpty()) continue;
+			if(hover.contains(mob.trim()))
 			{
 				return true;
 			}
@@ -152,13 +161,12 @@ public class Unit {
 	
 	public boolean isSpecial()
 	{
+		String hover = this.getHoverName();
+		if (hover == null) return false;
 		for(String item : specialITEMS)
 		{
-			if(this.getHoverName().contains(item))
-			{
-				return true;
-			}
-			if(this.getModelName().contains(WurmEspMod.search))
+			if (item == null || item.isEmpty()) continue;
+			if(hover.contains(item))
 			{
 				return true;
 			}
@@ -168,15 +176,15 @@ public class Unit {
 	
 	public boolean isSpotted()
 	{
-		for(String item : spottedITEMS)
-		{
-			if(this.getHoverName().contains(item))
+		String hover = this.getHoverName();
+		if (hover != null) {
+			for(String item : spottedITEMS)
 			{
-				return true;
-			}
-			if(this.getModelName().contains(WurmEspMod.search))
-			{
-				return true;
+				if (item == null || item.isEmpty()) continue;
+				if(hover.contains(item))
+				{
+					return true;
+				}
 			}
 		}
 		if(WurmEspMod.searchType == SEARCHTYPE.HOVER)

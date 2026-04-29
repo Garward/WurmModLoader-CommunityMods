@@ -12,8 +12,9 @@ repositories {
 dependencies {
     // WurmModLoader framework dependencies
     compileOnly(files(
-        "../../libs/wurmmodloader-api-0.10.0.jar",
-        "../../libs/wurmmodloader-legacy-0.10.0.jar"
+        "../../libs/wurmmodloader-api-0.10.1.jar",
+        "../../libs/wurmmodloader-core-0.10.1.jar",
+        "../../libs/wurmmodloader-legacy-0.10.1.jar"
     ))
 
     val wurmServerDir: String by rootProject.extra

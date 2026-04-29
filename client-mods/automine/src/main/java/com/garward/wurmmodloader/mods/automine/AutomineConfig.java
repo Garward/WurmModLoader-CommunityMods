@@ -2,6 +2,7 @@ package com.garward.wurmmodloader.mods.automine;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,28 +14,38 @@ import java.util.regex.Pattern;
 
 /**
  * Loads {@code automine.properties} from the deployed mod folder and exposes
- * typed accessors. Falls back to hardcoded defaults if the file is missing.
+ * typed accessors. Action IDs are mutable so the UI can rewrite them live and
+ * persist back to disk; other fields are immutable.
  */
 public final class AutomineConfig {
 
     private static final Logger logger = Logger.getLogger(AutomineConfig.class.getName());
 
-    public final short actionForward;
-    public final short actionUp;
-    public final short actionDown;
+    public short actionForward;
+    public short actionUp;
+    public short actionDown;
     public final int defaultBatchSize;
     public final float staminaFullThreshold;
     public final long staminaWatchdogMs;
+    public long timerIntervalMs;
     public final List<Pattern> stopPhrases;
 
-    private AutomineConfig(short fwd, short up, short down, int batch,
-                           float thr, long watchdog, List<Pattern> phrases) {
+    private final File propertiesFile;
+    private final Properties properties;
+
+    private AutomineConfig(File file, Properties props,
+                           short fwd, short up, short down, int batch,
+                           float thr, long watchdog, long timerMs,
+                           List<Pattern> phrases) {
+        this.propertiesFile = file;
+        this.properties = props;
         this.actionForward = fwd;
         this.actionUp = up;
         this.actionDown = down;
         this.defaultBatchSize = batch;
         this.staminaFullThreshold = thr;
         this.staminaWatchdogMs = watchdog;
+        this.timerIntervalMs = timerMs;
         this.stopPhrases = Collections.unmodifiableList(phrases);
     }
 
@@ -51,8 +62,9 @@ public final class AutomineConfig {
         short up   = (short) parseInt(p, "actionId.up", 39);
         short down = (short) parseInt(p, "actionId.down", 40);
         int batch  = clamp(parseInt(p, "defaultBatchSize", 3), 1, 10);
-        float thr  = (float) parseDouble(p, "staminaFullThreshold", 0.99);
+        float thr  = (float) parseDouble(p, "staminaFullThreshold", 0.98);
         long wd    = parseLong(p, "staminaWatchdogMs", 60_000);
+        long tmr   = parseLong(p, "timerIntervalMs", 5_000);
 
         List<Pattern> phrases = new ArrayList<>();
         for (int i = 0; ; i++) {
@@ -73,7 +85,25 @@ public final class AutomineConfig {
                 phrases.add(Pattern.compile(def, Pattern.CASE_INSENSITIVE));
             }
         }
-        return new AutomineConfig(fwd, up, down, batch, thr, wd, phrases);
+        return new AutomineConfig(propertiesFile, p, fwd, up, down, batch, thr, wd, tmr, phrases);
+    }
+
+    public void setActionForward(short id) { this.actionForward = id; persist("actionId.forward", Short.toString(id)); }
+    public void setActionUp(short id)      { this.actionUp = id;      persist("actionId.up", Short.toString(id)); }
+    public void setActionDown(short id)    { this.actionDown = id;    persist("actionId.down", Short.toString(id)); }
+    public void setTimerIntervalMs(long ms) {
+        this.timerIntervalMs = Math.max(0, ms);
+        persist("timerIntervalMs", Long.toString(this.timerIntervalMs));
+    }
+
+    private void persist(String key, String value) {
+        if (properties == null || propertiesFile == null) return;
+        properties.setProperty(key, value);
+        try (FileOutputStream out = new FileOutputStream(propertiesFile)) {
+            properties.store(out, "automine — updated by UI");
+        } catch (IOException e) {
+            logger.log(Level.WARNING, "[automine] failed to persist " + key + " to " + propertiesFile, e);
+        }
     }
 
     private static int parseInt(Properties p, String k, int d) {

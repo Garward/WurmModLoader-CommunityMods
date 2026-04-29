@@ -1,0 +1,75 @@
+// /testtree — opens a mock skill-tree window that exercises Canvas / Image /
+// Edge / Label / Button. Drop the .example suffix to enable.
+
+var EventBus       = Java.type("com.garward.wurmmodloader.core.event.EventBus");
+var ModActionEvent = Java.type("com.garward.wurmmodloader.api.events.ModActionEvent");
+var Widgets        = Java.type("com.garward.wurmmodloader.mods.declarativeui.api.Widgets");
+
+var TREE_W = 800;
+var TREE_H = 600;
+
+function node(id, label, x, y) {
+    return Widgets.at(x - 60, y - 16, 120, 32,
+        Widgets.button(label, "tree:pick:" + id, "Pick " + label));
+}
+
+function edge(x1, y1, x2, y2) {
+    return Widgets.edge(x1, y1, x2, y2, 3, "0.6,0.8,1.0,0.85");
+}
+
+function buildTree() {
+    // Five-node mock: foundation → off / def / utility → ascension
+    var FX = TREE_W / 2;
+    var children = [];
+
+    // Background: full-canvas space image, dimmed slightly so labels stay legible.
+    children.push(Widgets.at(0, 0, TREE_W, TREE_H,
+        Widgets.image("space_bg.jpg", TREE_W, TREE_H, "0.55,0.55,0.65,1.0")));
+
+    // Title.
+    children.push(Widgets.at(20, 12, 400, 28,
+        Widgets.label("Mock Skill Tree (Canvas + Image + Edges)")));
+
+    // Edges from foundation to tier 2.
+    children.push(edge(FX, 100, FX - 200, 250));
+    children.push(edge(FX, 100, FX,        250));
+    children.push(edge(FX, 100, FX + 200, 250));
+    // Edges to ascension.
+    children.push(edge(FX - 200, 250, FX, 450));
+    children.push(edge(FX,        250, FX, 450));
+    children.push(edge(FX + 200, 250, FX, 450));
+
+    // Nodes.
+    children.push(node("foundation", "Foundation",  FX,        100));
+    children.push(node("offense",    "Offense",     FX - 200, 250));
+    children.push(node("defense",    "Defense",     FX,        250));
+    children.push(node("utility",    "Utility",     FX + 200, 250));
+    children.push(node("ascension",  "Ascension",  FX,        450));
+
+    // Close button bottom-right.
+    children.push(Widgets.at(TREE_W - 100, TREE_H - 40, 80, 28,
+        Widgets.button("Close", "tree:close", null)));
+
+    var arr = Java.to(children, "com.garward.wurmmodloader.mods.declarativeui.api.WidgetNode[]");
+    return Widgets.canvas(TREE_W, TREE_H, arr);
+}
+
+function onPlayerMessage(communicator, message, title) {
+    if (message !== "/testtree") return;
+    var player = communicator.getPlayer();
+    if (player === null) return;
+
+    var tree = buildTree();
+
+    var ev = new ModActionEvent("ui:open_window");
+    ev.set("player",   player);
+    ev.set("windowId", "testtree");
+    ev.set("title",    "Mock Skill Tree");
+    ev.set("width",    TREE_W);
+    ev.set("height",   TREE_H);
+    ev.set("tree",     tree);
+    EventBus.getInstance().post(ev);
+
+    communicator.sendNormalServerMessage("[testtree] window sent.");
+    return "DISCARD";
+}

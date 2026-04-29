@@ -41,6 +41,13 @@ import com.wurmonline.server.players.Player;
 
 public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 
+	/** Canonical ModComm channel. */
+	public static final String CHANNEL = "com.garward.serverpacks";
+	/** Legacy Ago-era channel name. Kept as a read/write alias for one release
+	 *  so existing tyoda-based clients still interop. Scheduled for removal in
+	 *  Phase 4 (see docs/research/serverpacks-and-declarative-ui.md). */
+	public static final String LEGACY_CHANNEL = "ago.serverpacks";
+
 	private static final byte CMD_REFRESH = 0x01;
 
 	private static ServerPackMod instance;
@@ -50,6 +57,7 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 	private static final Logger logger = Logger.getLogger(ServerPackMod.class.getName());
 
 	private Channel channel;
+	private Channel legacyChannel;
 
 	private String prefix;
 
@@ -59,7 +67,7 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 
 	@Override
 	public void init() {
-		channel = ModComm.registerChannel("ago.serverpacks", new IChannelListener() {
+		IChannelListener listener = new IChannelListener() {
 			@Override
 			public void onPlayerConnected(Player player) {
 				// Check if HTTP server is running using event API
@@ -90,7 +98,9 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 					logger.log(Level.WARNING, e.getMessage(), e);
 				}
 			}
-		});
+		};
+		channel = ModComm.registerChannel(CHANNEL, listener);
+		legacyChannel = ModComm.registerChannel(LEGACY_CHANNEL, listener);
 	}
 
 	@Override
@@ -172,6 +182,41 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 		return javax.xml.bind.DatatypeConverter.printHexBinary(digest);
 	}
 
+	/**
+	 * SHA-256 hex digest of a file on disk. Used for the canonical-channel
+	 * delta-skip manifest so clients can avoid redownloading packs whose
+	 * cached copy already matches.
+	 */
+	private static String sha256Hex(Path packPath) throws IOException, NoSuchAlgorithmException {
+		try (InputStream is = Files.newInputStream(packPath)) {
+			return sha256Hex(is);
+		}
+	}
+
+	private static String sha256Hex(InputStream is) throws NoSuchAlgorithmException, IOException {
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		byte[] buffer = new byte[8192];
+		int n;
+		while ((n = is.read(buffer)) != -1) {
+			if (n > 0) md.update(buffer, 0, n);
+		}
+		return javax.xml.bind.DatatypeConverter.printHexBinary(md.digest()).toLowerCase();
+	}
+
+	private static void fillManifest(PackInfo info) {
+		try {
+			if (info.data != null) {
+				info.sha256 = sha256Hex(new ByteArrayInputStream(info.data));
+				info.size = info.data.length;
+			} else if (info.path != null) {
+				info.sha256 = sha256Hex(info.path);
+				info.size = Files.size(info.path);
+			}
+		} catch (IOException | NoSuchAlgorithmException e) {
+			logger.log(Level.WARNING, "failed to hash pack for manifest", e);
+		}
+	}
+
 	private void addPack(Path packPath, ServerPackOptions... options) throws NoSuchAlgorithmException, IOException {
 		String sha1Sum = getSha1Sum(packPath);
 		addPack(sha1Sum, new PackInfo(packPath, options));
@@ -195,11 +240,32 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 	}
 	
 	private void addPack(String name, PackInfo packInfo) {
+		fillManifest(packInfo);
 		packs.put(name, packInfo);
 		notifyPlayers(Collections.singletonMap(name, packInfo));
 	}
 	
+	/**
+	 * Pick whichever pack channel the player's client has registered. Canonical
+	 * {@link #CHANNEL} wins when both are active; falls back to the legacy
+	 * {@link #LEGACY_CHANNEL} with a one-shot deprecation log so server admins
+	 * know old clients are still out there.
+	 */
+	private Channel pickChannelFor(Player player) {
+		if (channel != null && channel.isActiveForPlayer(player)) {
+			return channel;
+		}
+		if (legacyChannel != null && legacyChannel.isActiveForPlayer(player)) {
+			logger.log(Level.FINE, "[ServerPacks] player {0} is on legacy ago.serverpacks channel — update client mod",
+				player.getName());
+			return legacyChannel;
+		}
+		return null;
+	}
+
 	private void notifyPlayer(Player player, Map<String, PackInfo> packs) {
+		Channel out = pickChannelFor(player);
+		if (out == null) return;
 		try {
 			// Get HTTP server base URI using event API
 			ModQueryEvent uriQuery = new ModQueryEvent("httpserver:get_uri");
@@ -211,6 +277,7 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 				return;
 			}
 			URI uri = baseUri.resolve(prefix);
+			final boolean canonical = (out == channel);
 			try (PacketWriter writer = new PacketWriter()) {
 				writer.writeInt(packs.size());
 				for (Map.Entry<String, PackInfo> entry : packs.entrySet()) {
@@ -228,20 +295,23 @@ public class ServerPackMod implements WurmServerMod, Configurable, ServerPacks {
 					final URI packUri = uri.resolve(packId);
 					writer.writeUTF(packId);
 					writer.writeUTF(packUri.toString() + query);
+					if (canonical) {
+						writer.writeUTF(info.sha256 == null ? "" : info.sha256);
+						writer.writeLong(info.size);
+					}
 				}
-				channel.sendMessage(player, writer.getBytes());
+				out.sendMessage(player, writer.getBytes());
 			}
 		} catch (IOException e) {
 			logger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
-	
+
 	private void notifyPlayers(Map<String, PackInfo> packs) {
-		if (this.channel != null && this.prefix != null) {
-			for (Player player : Players.getInstance().getPlayers()) {
-				if (channel.isActiveForPlayer(player)) {
-					notifyPlayer(player, packs);
-				}
+		if (this.prefix == null) return;
+		for (Player player : Players.getInstance().getPlayers()) {
+			if (pickChannelFor(player) != null) {
+				notifyPlayer(player, packs);
 			}
 		}
 	}

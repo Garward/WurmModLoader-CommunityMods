@@ -10,13 +10,15 @@ repositories {
 }
 
 dependencies {
-    // WurmModLoader API
+    compileOnly(files(
+        "../../libs/wurmmodloader-api-0.10.1.jar",
+        "../../libs/wurmmodloader-core-0.10.1.jar",
+        "../../libs/wurmmodloader-modsupport-0.10.1.jar"
+    ))
 
-    // Wurm server JARs
     val wurmServerDir: String by rootProject.extra
     compileOnly(files("$wurmServerDir/server.jar", "$wurmServerDir/common.jar"))
 
-    // Javassist
     compileOnly("org.javassist:javassist:3.23.1-GA")
 }
 

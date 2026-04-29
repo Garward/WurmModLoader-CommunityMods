@@ -1,0 +1,29 @@
+// Companion to onPlayerMessage/test-ui.js — handles the buttons it ships.
+//
+// onModAction(eventType, event) fires for EVERY ModActionEvent on the bus,
+// so always filter on eventType first. The declarative-ui mod posts
+// "ui:action" with payload {player, windowId, action, payload}.
+
+function onModAction(eventType, event) {
+    if (eventType !== "ui:action") {
+        return;
+    }
+    var windowId = event.getString("windowId");
+    if (windowId !== "testui") {
+        return;
+    }
+
+    var player = event.get("player");
+    var action = event.getString("action");
+
+    if (action === "testui:click") {
+        player.getCommunicator().sendNormalServerMessage("[testui] you clicked Click me!");
+    } else if (action === "testui:close") {
+        var EventBus       = Java.type("com.garward.wurmmodloader.core.event.EventBus");
+        var ModActionEvent = Java.type("com.garward.wurmmodloader.api.events.ModActionEvent");
+        var ev = new ModActionEvent("ui:close_window");
+        ev.set("player",   player);
+        ev.set("windowId", windowId);
+        EventBus.getInstance().post(ev);
+    }
+}

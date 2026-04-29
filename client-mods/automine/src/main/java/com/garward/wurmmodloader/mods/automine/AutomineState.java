@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 public final class AutomineState {
 
     public enum Phase { IDLE, DISPATCHING, WAITING_STAMINA, STOPPED }
+    public enum LoopMode { STAMINA, TIMER }
 
     @FunctionalInterface
     public interface ActionDispatcher {
@@ -29,6 +30,8 @@ public final class AutomineState {
     private int sentInBatch;
     private long waitingSince;
     private String stopReason = "";
+    private LoopMode loopMode = LoopMode.STAMINA;
+    private long timerIntervalMs = 5000L;
 
     public AutomineState(ActionDispatcher dispatcher,
                          Supplier<Float> staminaProvider,
@@ -46,12 +49,20 @@ public final class AutomineState {
     public String getStopReason() { return stopReason; }
     public int getSentInBatch() { return sentInBatch; }
     public int getBatchSize() { return batchSize; }
+    public LoopMode getLoopMode() { return loopMode; }
 
     public synchronized void start(short actionId, int batchSize) {
+        start(actionId, batchSize, LoopMode.STAMINA, this.timerIntervalMs);
+    }
+
+    public synchronized void start(short actionId, int batchSize,
+                                   LoopMode loopMode, long timerIntervalMs) {
         this.actionId = actionId;
         this.batchSize = Math.max(1, batchSize);
         this.sentInBatch = 0;
         this.stopReason = "";
+        this.loopMode = loopMode == null ? LoopMode.STAMINA : loopMode;
+        this.timerIntervalMs = Math.max(0, timerIntervalMs);
         this.phase = Phase.DISPATCHING;
     }
 
@@ -73,7 +84,12 @@ public final class AutomineState {
                 }
                 break;
             case WAITING_STAMINA:
-                if (watchdogMs > 0 && (nowMs - waitingSince) >= watchdogMs) {
+                if (loopMode == LoopMode.TIMER) {
+                    if ((nowMs - waitingSince) >= timerIntervalMs) {
+                        phase = Phase.DISPATCHING;
+                        sentInBatch = 0;
+                    }
+                } else if (watchdogMs > 0 && (nowMs - waitingSince) >= watchdogMs) {
                     Float s = staminaProvider.get();
                     if (s != null && s >= fullThreshold) {
                         phase = Phase.DISPATCHING;
@@ -87,6 +103,7 @@ public final class AutomineState {
     }
 
     public synchronized void onStaminaChanged(float newStamina) {
+        if (loopMode == LoopMode.TIMER) return;
         if (phase == Phase.WAITING_STAMINA && newStamina >= fullThreshold) {
             phase = Phase.DISPATCHING;
             sentInBatch = 0;

@@ -83,6 +83,29 @@ class AutomineStateTest {
     }
 
     @Test
+    void timerMode_kicksAfterIntervalIgnoringStamina() {
+        AutomineState s = newState();
+        stamina.set(0.10f);
+        s.start((short) 38, 1, AutomineState.LoopMode.TIMER, 5000L);
+        s.onTick(0L);
+        assertEquals(AutomineState.Phase.WAITING_STAMINA, s.getPhase());
+        s.onTick(4_999L);
+        assertEquals(AutomineState.Phase.WAITING_STAMINA, s.getPhase());
+        s.onTick(5_000L);
+        assertEquals(AutomineState.Phase.DISPATCHING, s.getPhase());
+    }
+
+    @Test
+    void timerMode_ignoresStaminaEvents() {
+        AutomineState s = newState();
+        s.start((short) 38, 1, AutomineState.LoopMode.TIMER, 5000L);
+        s.onTick(0L);
+        assertEquals(AutomineState.Phase.WAITING_STAMINA, s.getPhase());
+        s.onStaminaChanged(1.0f);
+        assertEquals(AutomineState.Phase.WAITING_STAMINA, s.getPhase());
+    }
+
+    @Test
     void restartFromStopped() {
         AutomineState s = newState();
         s.start((short) 38, 1);

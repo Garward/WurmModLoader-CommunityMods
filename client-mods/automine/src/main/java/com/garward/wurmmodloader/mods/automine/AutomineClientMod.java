@@ -30,6 +30,7 @@ public class AutomineClientMod {
     private volatile AutomineState state;
     private volatile AutomineWindow window;
     private volatile boolean pendingOpen;
+    private volatile String dispatchTarget = "selected";
 
     @SubscribeEvent
     public void onHudInit(ClientHUDInitializedEvent event) {
@@ -85,14 +86,25 @@ public class AutomineClientMod {
         if (window != null) return;
         try {
             window = new AutomineWindow(config, new AutomineWindow.Listener() {
-                @Override public void onStart(AutomineWindow.Direction dir, int batchSize) {
+                @Override public void onStart(AutomineWindow.Mode mode,
+                                              AutomineWindow.Direction dir,
+                                              AutomineWindow.LoopBy loopBy,
+                                              int batchSize) {
                     short id;
                     switch (dir) {
                         case UP:   id = config.actionUp; break;
                         case DOWN: id = config.actionDown; break;
                         default:   id = config.actionForward;
                     }
-                    state.start(id, batchSize);
+                    switch (mode) {
+                        case CRAFT: dispatchTarget = "inventory_selection"; break;
+                        case BODY:  dispatchTarget = "body";                break;
+                        default:    dispatchTarget = "selected";            break;
+                    }
+                    AutomineState.LoopMode lm = loopBy == AutomineWindow.LoopBy.TIMER
+                            ? AutomineState.LoopMode.TIMER
+                            : AutomineState.LoopMode.STAMINA;
+                    state.start(id, batchSize, lm, config.timerIntervalMs);
                 }
                 @Override public void onPause() { state.pause(); }
                 @Override public void onClose() { state.pause(); window = null; }
@@ -106,7 +118,7 @@ public class AutomineClientMod {
 
     private void dispatchAction(short actionId) {
         try {
-            PlayerActionDispatcher.dispatch(hud, actionId, "tile");
+            PlayerActionDispatcher.dispatch(hud, actionId, dispatchTarget);
         } catch (Throwable t) {
             logger.log(Level.WARNING, "[automine] dispatch failed", t);
             state.pause();

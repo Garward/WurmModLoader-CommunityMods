@@ -1,0 +1,181 @@
+// /gm <subcommand> [args...] — GM-only live-testing dispatcher.
+//
+// Drop the .example suffix to enable. Edit freely while the server runs:
+// onPlayerMessage.refresh=true (mod.properties) reloads on save — no restart.
+//
+// Adding a subcommand: append an entry to `commands` below. Each handler
+// receives (player, args[]) and returns a status string for chat. Throw on
+// usage error; the dispatcher catches and prints the message.
+//
+// Permission gate: requires power >= 2 (full GM). Tweak MIN_POWER if you
+// want to let HEROs (1) or DEVs (5) only.
+
+var ItemFactory     = Java.type("com.wurmonline.server.items.ItemFactory");
+var Server          = Java.type("com.wurmonline.server.Server");
+var EventBus        = Java.type("com.garward.wurmmodloader.core.event.EventBus");
+var ModActionEvent  = Java.type("com.garward.wurmmodloader.api.events.ModActionEvent");
+
+var MIN_POWER = 2;
+
+var commands = {
+    "help": {
+        usage: "/gm help",
+        run: function(p, args) {
+            var lines = ["[gm] subcommands:"];
+            for (var k in commands) lines.push("  " + commands[k].usage);
+            return lines.join("\n");
+        }
+    },
+
+    "where": {
+        usage: "/gm where",
+        run: function(p, args) {
+            return "[gm] " + p.getName()
+                + " @ x=" + p.getPosX().toFixed(1)
+                + " y=" + p.getPosY().toFixed(1)
+                + " z=" + p.getPosZ().toFixed(1)
+                + " tile=" + p.getTileX() + "," + p.getTileY()
+                + (p.isOnSurface() ? " surface" : " cave")
+                + " kingdom=" + p.getKingdomId();
+        }
+    },
+
+    "tp": {
+        usage: "/gm tp <x> <y> [surface=true]",
+        run: function(p, args) {
+            if (args.length < 2) throw "need x and y (meters)";
+            var x = parseFloat(args[0]);
+            var y = parseFloat(args[1]);
+            var surf = args.length < 3 || args[2] !== "false";
+            p.setPositionX(x);
+            p.setPositionY(y);
+            p.setSurfaced(surf);
+            p.teleport();
+            return "[gm] tp → " + x + "," + y + (surf ? " (surface)" : " (cave)");
+        }
+    },
+
+    "power": {
+        usage: "/gm power <0-5>",
+        run: function(p, args) {
+            if (args.length < 1) throw "need power level";
+            var n = parseInt(args[0], 10);
+            if (isNaN(n) || n < 0 || n > 5) throw "power must be 0-5";
+            p.setPower(n);
+            return "[gm] power = " + n;
+        }
+    },
+
+    "money": {
+        usage: "/gm money <iron>  (100=1c, 10000=1s, 1000000=1g)",
+        run: function(p, args) {
+            if (args.length < 1) throw "need amount in iron";
+            var n = parseInt(args[0], 10);
+            if (isNaN(n)) throw "amount must be a number";
+            p.addMoney(n);
+            return "[gm] +" + n + " iron (now " + p.getMoney() + ")";
+        }
+    },
+
+    "item": {
+        usage: "/gm item <templateId> [count=1] [ql=50] [rarity=0]",
+        run: function(p, args) {
+            if (args.length < 1) throw "need template id";
+            var tid    = parseInt(args[0], 10);
+            var count  = args.length > 1 ? parseInt(args[1], 10) : 1;
+            var ql     = args.length > 2 ? parseFloat(args[2]) : 50.0;
+            var rarity = args.length > 3 ? parseInt(args[3], 10) : 0;
+            var inv    = p.getInventory();
+            var made   = 0;
+            for (var i = 0; i < count; i++) {
+                var it = ItemFactory.createItem(tid, ql, rarity, p.getName());
+                inv.insertItem(it, true);
+                made++;
+            }
+            return "[gm] spawned " + made + " × tpl=" + tid + " ql=" + ql;
+        }
+    },
+
+    "heal": {
+        usage: "/gm heal",
+        run: function(p, args) {
+            var ws = p.getBody().getWounds();
+            var n = 0;
+            if (ws !== null) {
+                var arr = ws.getWounds();
+                for (var i = 0; i < arr.length; i++) { arr[i].heal(); n++; }
+            }
+            p.setHungry(0);
+            p.setThirst(0);
+            p.refreshVisible();
+            return "[gm] healed " + n + " wounds, fed, watered";
+        }
+    },
+
+    "time": {
+        usage: "/gm time <hour 0-23>",
+        run: function(p, args) {
+            if (args.length < 1) throw "need hour";
+            var h = parseInt(args[0], 10);
+            if (isNaN(h) || h < 0 || h > 23) throw "hour must be 0-23";
+            // WurmCalendar = 8 hours per Wurm day; this is a rough nudge.
+            // Use /time in vanilla GM console for precise control.
+            return "[gm] (use the vanilla #time GM command — scripted clock writes risk corrupting calendar state)";
+        }
+    },
+
+    "fire": {
+        usage: "/gm fire <eventName> [k=v ...]   — post a ModActionEvent (player auto-set)",
+        run: function(p, args) {
+            if (args.length < 1) throw "need event name";
+            var ev = new ModActionEvent(args[0]);
+            ev.set("player", p);
+            for (var i = 1; i < args.length; i++) {
+                var eq = args[i].indexOf("=");
+                if (eq < 0) continue;
+                ev.set(args[i].substring(0, eq), args[i].substring(eq + 1));
+            }
+            EventBus.getInstance().post(ev);
+            return "[gm] posted " + args[0];
+        }
+    },
+
+    "ui": {
+        usage: "/gm ui <windowId>   — close a declarativeui window",
+        run: function(p, args) {
+            if (args.length < 1) throw "need windowId";
+            var ev = new ModActionEvent("ui:close_window");
+            ev.set("player",   p);
+            ev.set("windowId", args[0]);
+            EventBus.getInstance().post(ev);
+            return "[gm] closed window " + args[0];
+        }
+    }
+};
+
+function onPlayerMessage(communicator, message, title) {
+    if (message === null || message.indexOf("/gm") !== 0) return;
+    var player = communicator.getPlayer();
+    if (player === null) return;
+    if (player.getPower() < MIN_POWER) {
+        communicator.sendNormalServerMessage("[gm] requires power " + MIN_POWER + "+");
+        return "DISCARD";
+    }
+
+    var parts = message.trim().split(/\s+/);
+    parts.shift();                          // drop "/gm"
+    var sub = parts.shift() || "help";
+    var entry = commands[sub];
+    if (!entry) {
+        communicator.sendNormalServerMessage("[gm] unknown: " + sub + " — try /gm help");
+        return "DISCARD";
+    }
+
+    try {
+        var result = entry.run(player, parts);
+        if (result) communicator.sendNormalServerMessage(result);
+    } catch (e) {
+        communicator.sendNormalServerMessage("[gm] " + sub + ": " + e + "\n  usage: " + entry.usage);
+    }
+    return "DISCARD";
+}

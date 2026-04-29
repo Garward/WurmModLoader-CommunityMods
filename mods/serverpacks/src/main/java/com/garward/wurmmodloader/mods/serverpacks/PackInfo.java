@@ -27,6 +27,19 @@ class PackInfo {
 	final boolean force;
 
 	/**
+	 * SHA-256 hex digest of the pack bytes. Lazily filled by ServerPackMod
+	 * at add-time. Sent to canonical clients so they can delta-skip when
+	 * their cached copy already matches.
+	 */
+	String sha256;
+
+	/**
+	 * Size in bytes of the pack payload. Filled alongside {@link #sha256}.
+	 * Sent to canonical clients for download progress UI.
+	 */
+	long size;
+
+	/**
 	 * Create a pack info
 	 * @param path Path to the pack
 	 * @param options Options

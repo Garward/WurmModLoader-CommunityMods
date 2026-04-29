@@ -1,0 +1,37 @@
+// /testui — opens a small declarative UI window on the player who sent the chat.
+// Requires scriptrunner + declarativeui both with sharedClassLoader=true.
+
+var EventBus       = Java.type("com.garward.wurmmodloader.core.event.EventBus");
+var ModActionEvent = Java.type("com.garward.wurmmodloader.api.events.ModActionEvent");
+var Widgets        = Java.type("com.garward.wurmmodloader.mods.declarativeui.api.Widgets");
+var WidgetNode     = Java.type("com.garward.wurmmodloader.mods.declarativeui.api.WidgetNode");
+
+function onPlayerMessage(communicator, message, title) {
+    if (message !== "/testui") {
+        return;
+    }
+    var player = communicator.getPlayer();
+    if (player === null) {
+        return;
+    }
+
+    var tree = Widgets.stack("vertical", 4, 8,
+        Widgets.label("Hello from scriptrunner!"),
+        Widgets.bindLabel("status", "idle"),
+        Widgets.spacer(0, 4),
+        Widgets.button("Click me", "testui:click", null),
+        Widgets.button("Close",    "testui:close", null)
+    );
+
+    var ev = new ModActionEvent("ui:open_window");
+    ev.set("player",   player);
+    ev.set("windowId", "testui");
+    ev.set("title",    "Scriptrunner Test");
+    ev.set("width",    260);
+    ev.set("height",   140);
+    ev.set("tree",     tree);
+    EventBus.getInstance().post(ev);
+
+    player.getCommunicator().sendNormalServerMessage("[testui] window sent.");
+    return "DISCARD";
+}
