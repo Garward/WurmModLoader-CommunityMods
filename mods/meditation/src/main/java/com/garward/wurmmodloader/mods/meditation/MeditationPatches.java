@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  * FQN from rewritten bytecode (the mod runs with sharedClassLoader=true so
  * they sit on the same loader as the patched vanilla classes).
  */
-final class MeditationPatches {
+public final class MeditationPatches {
 
     private static final Logger logger = Logger.getLogger(MeditationPatches.class.getName());
 
