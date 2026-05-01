@@ -69,8 +69,9 @@ project(":mods:scriptrunner").projectDir = file("mods/scriptrunner")
 include("mods:serverpacks")
 project(":mods:serverpacks").projectDir = file("mods/serverpacks")
 
-include("mods:declarativeui")
-project(":mods:declarativeui").projectDir = file("mods/declarativeui")
+// declarativeui folded into the framework as a built-in service
+// (com.garward.wurmmodloader.modsupport.declarativeui.DeclarativeUiService).
+// No mod jar is needed; mods just post `ui:open_window` ModActionEvents.
 
 include("mods:spellmod")
 project(":mods:spellmod").projectDir = file("mods/spellmod")

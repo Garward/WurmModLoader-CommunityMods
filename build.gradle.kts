@@ -62,10 +62,10 @@ subprojects {
         // Server framework JARs auto-injected for server mods only.
         // Client mods under client-mods/ wire up their own client framework JARs.
         if (!project.path.startsWith(":client-mods:")) {
-            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-api-0.10.0.jar"))
-            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-core-0.10.0.jar"))
-            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-modsupport-0.10.0.jar"))
-            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-legacy-0.10.0.jar"))
+            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-api-0.10.1.jar"))
+            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-core-0.10.1.jar"))
+            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-modsupport-0.10.1.jar"))
+            implementation(files("${rootProject.projectDir}/libs/wurmmodloader-legacy-0.10.1.jar"))
         }
 
         // Common test dependencies - JUnit 4 for legacy tests

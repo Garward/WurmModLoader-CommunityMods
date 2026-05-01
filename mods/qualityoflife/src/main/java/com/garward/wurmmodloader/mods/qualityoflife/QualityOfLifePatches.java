@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  * with {@code sharedClassLoader=true} so they sit on the same class loader
  * as the vanilla classes that call them.
  */
-final class QualityOfLifePatches {
+public final class QualityOfLifePatches {
 
     private static final Logger logger = Logger.getLogger(QualityOfLifePatches.class.getName());
 
